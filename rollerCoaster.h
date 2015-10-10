@@ -21,7 +21,7 @@ public:
 	//print
 	friend ostream& operator<<(ostream& os, const RollerCoaster& rc);
 
-private:
+protected:
 	int height;
 	int numOfLoops;
 };

@@ -15,7 +15,7 @@ public:
 	//print
 	friend ostream& operator<<(ostream& os, const WaterSlide& ws);
 
-private:
+protected:
 	int literOfWater;
 };
 

@@ -14,9 +14,9 @@ public:
 		FAST_LINE
 	};
 
-	VIPTicket(const Ticket& ticket, VIPType theType);
+	VIPTicket(const Ticket& ticket, VIPType theType) ;
 	
-	VIPType getType() const;
+	VIPType getTicketType() const;
 	void setType(VIPType type);
 
 	//print

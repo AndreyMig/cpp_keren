@@ -36,7 +36,7 @@ public:
 	//print
 	friend ostream& operator<<(ostream& os, const Facility& f);
 
-private:
+protected:
 	char* name;
 	bool ageTypeAvailable[Guest::AgeTypeSize]; //array of age type available for this facility
 	bool needVIPTicket;
