@@ -20,10 +20,9 @@ Park::Park(const Park& other) : name(NULL)
 void Park::setName(const char* name)
 {
 	delete[] this->name;
-	this->name = strdup(name);
+	this->name = _strdup(name);
 }
 void Park::setFacilities(const Facility** facilities){
-	
 	//TODO   const?
 	//this->facilities = facilities;
 
@@ -33,22 +32,20 @@ void Park::setOperators(const Operator** operators){
 }
 void Park::setGuests(const Guest** guests){
 	//TODO   const?
-
 }
 
 
-
-
 //getters
-
 const char* Park::getName() const
 {
 	return name;
 }
+
 const Facility** Park::getFacilities() const
 {
 	return this->facilities;
 }
+
 Facility** Park::getFacilities(){
 	return this->facilities;
 }
@@ -86,10 +83,19 @@ const Park& Park::operator=(const Park& other)
 	//return *this;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip = false){
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip = false) {
+
+	//Check that the max number of guests is not exceeded
+	if (this->numOfGuests < this->maxGuests)
+	{
+		//TODO how to handle max num exceeded
+		//throw "Max number of guests, Can't add more.";
+	}
 
 	Guest *newGuest = new Guest(person, type, feel);
 
+
+	*this += *newGuest;
 
 
 	//TODO check that it is correct that it returns value not address
@@ -98,13 +104,13 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 }
 
 /*Add guest to park*/
-const Park& operator+=(const Guest& guest){
+const Park& Park::operator+=(Guest& guest){
 
-
+	this->guests[this->numOfGuests++] = &guest;
 	return *this;
 }
 /*Remove guest from park*/
-const Park& operator-=(const Guest& guest){
+const Park& Park::operator-=(const Guest& guest){
 
 }
 
