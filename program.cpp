@@ -17,7 +17,7 @@ int main(int argc, const char* argv[])
 	disneyWorld += o2;
 	disneyWorld += o3;
 	disneyWorld += o4;
-
+	//master
 	//init facilities
 	bool ageTypes[] = {true, true, false};
 	WaterSlide waterSlide(Facility("KAMIKAZA", 2 , ageTypes, &o1), 800);
