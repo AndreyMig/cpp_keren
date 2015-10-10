@@ -27,7 +27,7 @@ public:
 	Guest(const Person& person, AgeType type, Feel feel);
 
 	//getters
-	const Ticket& getTicket() const;
+	const Ticket* getTicket() const;
 	AgeType getType() const;
 	Feel getFeel() const;
 
@@ -41,7 +41,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Guest& g);
 
 private:
-	Ticket ticket;
+	Ticket* ticket;
 	AgeType type;
 	Feel feel;
 };

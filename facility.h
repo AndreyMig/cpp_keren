@@ -9,7 +9,7 @@ using namespace std;
 class Facility
 {
 public:
-	Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], const Operator* mainOperator, bool needVIPTicket = false);
+	Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket = false);
 	Facility(const Facility& other);
 	virtual ~Facility();
 	const Facility& operator=(const Facility& other);
@@ -18,21 +18,20 @@ public:
 	int getMaxNumOfPassengers() const;
 	bool doesNeedVIPTicket() const;
 	const char* getName() const;
-	bool* getAgeTypeAvailable() const;
-	const Guest** getGuests() const;
-	Guest** getGuests(); //for changes
+	const bool* getAgeTypeAvailable() const;
+	const Guest*const* getGuests() const;
 
 	//setters
 	void setMaxNumOfPassengers(int maxNumOfPassangers); //maximum number of guests to get on ride
-	void setNeddVIPTicket(bool needVIPTicket);
+	void setNeedVIPTicket(bool needVIPTicket);
 	void setName(const char* name);
-	void setAgeTypeByIndex(int index);
+	void setAgeTypeByIndex(int index, bool allowed);
 
 	//actions
 	void start() const;									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 
 	const Facility& operator+=(const Guest& passenger); // add a passenger to passengers list only if operator accept!!!! (call for operator 'checkTicket' method)
 	const Facility& operator-=(const Guest& passenger); // remove a passenger to passengers list
-	Guest& operator[] (const char* guestName);			// get the guest in the list by name
+	const Guest& Facility::operator[] (const char* guestName) const;
 
 	//print
 	friend ostream& operator<<(ostream& os, const Facility& f);
@@ -41,10 +40,13 @@ private:
 	char* name;
 	bool ageTypeAvailable[Guest::AgeTypeSize]; //array of age type available for this facility
 	bool needVIPTicket;
-	Guest** passengers; // array of guest on facility (dynamic)
+	const Guest** guests; // array of guest on facility (dynamic)
 	int maxNumOfPassangers;
 	int numOfPassengers;
 	Operator* mainOperator;
+	
+
+	const Guest* findGuest(const char* guestName) const;
 };
 
 #endif
