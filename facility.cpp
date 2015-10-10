@@ -131,11 +131,11 @@ void Facility::start() const
 }
 
 // add a passenger to passengers list 
-const Facility& Facility::operator+=(const Guest& passenger)
+const Facility& Facility::operator+=(const Guest& passenger) throw(const char*)
 {
 	//no more place
 	if(numOfPassengers == maxNumOfPassangers)
-		return *this;
+		throw "Facility is full.";
 
 	//check if has vip is needed and if guest have a vip ticket
 	if(needVIPTicket)
@@ -143,7 +143,7 @@ const Facility& Facility::operator+=(const Guest& passenger)
 		const Ticket* t = passenger.getTicket();
 		if(typeid(*t) != typeid(VIPTicket))
 		{
-			return *this;
+			throw "Guest need to have a VIP Ticket.";
 		}
 	}
 
@@ -152,7 +152,7 @@ const Facility& Facility::operator+=(const Guest& passenger)
 }
 
 // remove a passenger to passengers list
-const Facility& Facility::operator-=(const Guest& passenger)
+const Facility& Facility::operator-=(const Guest& passenger) throw(const char*)
 {
 	int i;
 	bool found = false;
@@ -176,6 +176,10 @@ const Facility& Facility::operator-=(const Guest& passenger)
 			guests[i-1] = guests[i];
 		}
 		numOfPassengers--;
+	}
+	else
+	{
+		throw "Guest not found";
 	}
 
 	return *this;
