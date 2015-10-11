@@ -87,14 +87,15 @@ void Facility::setMaxNumOfPassengers(int maxNumOfPassangers)
 	//check if there are already more guests then allowed then take some off
 	if(maxNumOfPassangers < this->numOfPassengers) 
 	{
-		int takeOffRide = this->numOfPassengers - maxNumOfPassangers;
+		//int takeOffRide = this->numOfPassengers - maxNumOfPassangers;
 
-		for(int i = 0; i < takeOffRide; i++)
-		{
-			guests[this->numOfPassengers-1-i] = NULL;
-		}
+		//for(int i = 0; i < takeOffRide; i++)
+		//{
+		//	guests[this->numOfPassengers-1-i] = NULL;
+		//}
 
-		this->numOfPassengers -= takeOffRide;
+		//this->numOfPassengers -= takeOffRide;
+		throw "Can't limit the capacity of facility to " << maxNumOfPassangers << " because there are already " << numOfPassengers << " passengers";
 	}
 	else
 	{

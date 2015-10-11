@@ -40,10 +40,10 @@ int main(int argc, const char* argv[])
 	Person p3("Adi", 27, 1.68);
 	Person p4("Adva", 72, 1.45);
 
-	Guest g1 = disneyWorld.buyTicket(p1, Guest::CHILD, Guest::THRILLED);
-	Guest g2 = disneyWorld.buyTicket(p2, Guest::ADULT, Guest::HAPPY, true);
-	Guest g3 = disneyWorld.buyTicket(p3, Guest::ADULT, Guest::HAPPY);
-	Guest g4 = disneyWorld.buyTicket(p4, Guest::CHILD, Guest::AFRAID);
+	Guest& g1 = disneyWorld.buyTicket(p1, Guest::CHILD, Guest::THRILLED);
+	Guest& g2 = disneyWorld.buyTicket(p2, Guest::ADULT, Guest::HAPPY, true);
+	Guest& g3 = disneyWorld.buyTicket(p3, Guest::ADULT, Guest::HAPPY);
+	Guest& g4 = disneyWorld.buyTicket(p4, Guest::CHILD, Guest::AFRAID);
 
 	//add guest to facility
 	waterSlide += g1;

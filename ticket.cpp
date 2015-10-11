@@ -7,7 +7,9 @@ Ticket::Ticket(const char* date, float price) throw(const char*) : price(price)
 	setDate(date);
 }
 
-Ticket::~Ticket(){}
+Ticket::~Ticket()
+{
+}
 
 //getters
 float Ticket::getPrice() const

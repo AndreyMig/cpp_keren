@@ -9,9 +9,7 @@ class Person
 {
 public:
 	Person(const char* name, int age, double height);
-	Person(const Person& other);
 	virtual ~Person();
-	const Person& operator=(const Person& other);
 
 	//getters
 	const char* getName() const;
@@ -26,10 +24,13 @@ public:
 	//print
 	friend ostream& operator<<(ostream& os, const Person& p);
 
-private:
+protected:
 	char* name;
 	int age;
 	double height;
+
+	Person(const Person& other);
+	const Person& operator=(const Person& other);
 };
 
 

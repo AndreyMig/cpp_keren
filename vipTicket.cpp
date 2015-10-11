@@ -11,6 +11,11 @@ void VIPTicket::setType(VIPType type)
 	this->type = type;
 }
 
+VIPTicket::VIPType VIPTicket::getTicketType() const
+{
+	return type;
+}
+
 //print
 ostream& operator<<(ostream& os, const VIPTicket& t)
 {
@@ -18,7 +23,3 @@ ostream& operator<<(ostream& os, const VIPTicket& t)
 	return os;
 }
 
-VIPTicket::VIPType VIPTicket::getTicketType() const
-{
-	return type;
-}

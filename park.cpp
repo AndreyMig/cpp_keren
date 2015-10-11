@@ -1,18 +1,21 @@
+#pragma warning(disable: 4996)
 #include "park.h"
 
 Park::Park(const char* name, int maxFacilities, int maxOperators, int maxGuests)
+	: name(NULL), maxFacilities(maxFacilities), maxOperators(maxOperators), maxGuests(maxGuests)
 {
-	
 	setName(name);
-	this->maxFacilities = maxFacilities;
-	this->maxOperators = maxOperators;
-	this->maxGuests = maxGuests;
+	this->facilities = new Facility*[maxFacilities];
+	this->operators = new Operator*[maxOperators];
+	this->guests = new Guest*[maxGuests];
 
+	numOfOperators = 0;
+	numOfFacilities = 0;
+	numOfGuests = 0;
 }
 
 Park::Park(const Park& other) : name(NULL)
 {
-	//TODO
 	*this = other;
 }
 
@@ -20,20 +23,8 @@ Park::Park(const Park& other) : name(NULL)
 void Park::setName(const char* name)
 {
 	delete[] this->name;
-	this->name = _strdup(name);
+	this->name = strdup(name);
 }
-void Park::setFacilities(const Facility** facilities){
-	//TODO   const?
-	//this->facilities = facilities;
-
-}
-void Park::setOperators(const Operator** operators){
-	//TODO   const?
-}
-void Park::setGuests(const Guest** guests){
-	//TODO   const?
-}
-
 
 //getters
 const char* Park::getName() const
@@ -41,8 +32,8 @@ const char* Park::getName() const
 	return name;
 }
 
-//TODO I removed all const returning get functions
-//const Facility** Park::getFacilities() const
+//TODO I removed all const returning get functions 
+//const Facility*const* Park::getFacilities() const
 //{
 //	return this->facilities;
 //}
@@ -70,18 +61,13 @@ list<Guest*> Park::getGuests(){
 //operators
 const Park& Park::operator=(const Park& other)
 {
-
-
-	//TODO 
-
-	//if (this != &other)
-	//{
-	//	setName(other.name);
-	//	this->maxFacilities = other.maxFacilities;
-	//	this->maxOperators = other.maxOperators;
-	//	this->maxGuests = other.maxGuests;
-
-	//}
+	if (this != &other)
+	{
+		setName(other.name);
+		this->maxFacilities = other.maxFacilities;
+		this->maxOperators = other.maxOperators;
+		this->maxGuests = other.maxGuests;
+	}
 
 	return *this;
 }

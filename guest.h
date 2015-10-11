@@ -8,6 +8,9 @@ using namespace std;
  
 class Guest : public Person
 {
+private:
+	Guest(const Guest& other);
+	const Guest& operator=(const Guest& other);
 public:
 	static const int AgeTypeSize = 3;
 	enum AgeType

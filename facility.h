@@ -44,8 +44,8 @@ protected:
 	int maxNumOfPassangers;
 	int numOfPassengers;
 	Operator* mainOperator;
-	
 
+private:
 	const Guest* findGuest(const char* guestName) const;
 };
 

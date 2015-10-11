@@ -7,7 +7,7 @@
 #include "guest.h"
 #include <list>
 using namespace std;
- 
+
 class Park
 {
 public:
@@ -27,13 +27,10 @@ public:
 
 	//setters
 	void setName(const char* name);
-	void setFacilities(const Facility** facilities);
-	void setOperators(const Operator** operators);
-	void setGuests(const Guest** guests);
 
 	//actions
 	Guest& buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip = false); // person buy ticket from park, the park create this person as a guest,
-																									  // and add him to the park ( operator += );
+	// and add him to the park ( operator += );
 
 	const Park& operator+=(const Facility& facility); //add facility to park
 	const Park& operator-=(const Facility& facility);// remove facility from park
@@ -47,15 +44,17 @@ public:
 
 private:
 	char* name;
+
 	Facility** facilities; 
-	Operator** operators;
-	list<Guest*> guestsList;
-	//Guest** guests;
 	int numOfFacilities;
-	int numOfOperators;
-	int numOfGuests;
 	int maxFacilities;
+
+	Operator** operators;
+	int numOfOperators;
 	int maxOperators;
+
+	Guest** guests;
+	int numOfGuests;
 	int maxGuests;
 };
 
