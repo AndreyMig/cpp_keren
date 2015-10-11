@@ -117,7 +117,8 @@ const Park& Park::operator+=(Guest& guest){
 /*Remove guest from park*/
 const Park& Park::operator-=(const Guest& guest){
 	
-	
+	//TODO TEST
+
 	list<Guest*>::iterator  itr = this->guestsList.begin();
 	list<Guest*>::iterator  itrEnd = this->guestsList.end();
 	for (; itr != itrEnd; ++itr)

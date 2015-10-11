@@ -57,7 +57,6 @@ private:
 	int maxFacilities;
 	int maxOperators;
 	int maxGuests;
-	const int Park::findGuestInParkByName(const char* guestName) const;
 };
 
 #endif
