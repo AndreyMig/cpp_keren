@@ -134,6 +134,18 @@ const Park& Park::operator-=(const Guest& guest){
 }
 
 
+//print
+ostream& operator<<(ostream& os, const Park& p)
+{
+	os << "Park : " << p.name << endl;
+	os << "Number of facilities in park  : " << p.numOfFacilities << "out of "<< p.maxFacilities <<"possible"<< endl;
+	os << "Number of Guests in park  : " << p.numOfGuests << "out of " << p.maxGuests << "possible" << endl;
+	
+	return os;
+}
+
+
+
 Park::~Park(){
 	//TODO DESTROY ALL DYNAMIC
 }
