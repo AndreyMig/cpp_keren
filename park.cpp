@@ -41,24 +41,27 @@ const char* Park::getName() const
 	return name;
 }
 
-const Facility** Park::getFacilities() const
-{
-	return this->facilities;
-}
+//TODO I removed all const returning get functions
+//const Facility** Park::getFacilities() const
+//{
+//	return this->facilities;
+//}
 
 Facility** Park::getFacilities(){
 	return this->facilities;
 }
-const Operator** Park::getOperators() const
-{
-	return this->operators;
-}
+//
+//const Operator** Park::getOperators() const
+//{
+//	return this->operators;
+//}
 Operator** Park::getOperators(){
 	return this->operators;
 }
-const Guest** Park::getGuests() const{
-	return this->guests;
-}
+//
+//const Guest** Park::getGuests() const{
+//	return this->guests;
+//}
 Guest** Park::getGuests(){
 	return this->guests;
 }
@@ -80,10 +83,10 @@ const Park& Park::operator=(const Park& other)
 
 	//}
 
-	//return *this;
+	return *this;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip = false) {
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip) {
 
 	//Check that the max number of guests is not exceeded
 	if (this->numOfGuests < this->maxGuests)
@@ -111,9 +114,26 @@ const Park& Park::operator+=(Guest& guest){
 }
 /*Remove guest from park*/
 const Park& Park::operator-=(const Guest& guest){
+	const int guestIndex = findGuestInParkByName(guest.getName());
+	if (guestIndex > 0)
+	{
+		this->guests[this->numOfGuests++] = &guest;
+	}
+		
 
 }
 
+/*Iterates over all facilities to find a specific guest by name*/
+const int Park::findGuestInParkByName(const char* guestName) const
+{
+	for (int i = 0; i < numOfGuests; i++)
+	{
+		if (strcmp(this->guests[i]->getName(), guestName) == 0)
+			return i;
+	}
+
+	return -1;
+}
 
 Park::~Park(){
 	//TODO DESTROY ALL DYNAMIC

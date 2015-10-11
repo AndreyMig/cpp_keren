@@ -48,13 +48,14 @@ private:
 	char* name;
 	Facility** facilities; 
 	Operator** operators;
-	const Guest** guests;
+	Guest** guests;
 	int numOfFacilities;
 	int numOfOperators;
 	int numOfGuests;
 	int maxFacilities;
 	int maxOperators;
 	int maxGuests;
+	const int Park::findGuestInParkByName(const char* guestName) const;
 };
 
 #endif
