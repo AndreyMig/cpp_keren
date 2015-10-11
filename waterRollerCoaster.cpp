@@ -9,8 +9,8 @@ WaterRollerCoaster::WaterRollerCoaster(const WaterSlide& slide,const RollerCoast
 ostream& operator<<(ostream& os, const WaterRollerCoaster& wrc)
 {
 	os << "**WaterRollerCoaster**" << endl;
-	os << literOfWater << " liters of water" << endl;
-	os << height << " meters " << numOfLoops << " loops" << endl;
+	os << wrc.literOfWater << " liters of water" << endl;
+	os << wrc.height << " meters " << wrc.numOfLoops << " loops" << endl;
 	os << (Facility&)wrc;
 	return os;
 }

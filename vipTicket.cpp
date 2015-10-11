@@ -2,7 +2,7 @@
 
 const char* vipTypes[2] = {"First Class","Fast Line"};
 
-VIPTicket::VIPTicket(const Ticket& ticket, VIPType theType) : Ticket(ticket), type(theType)
+VIPTicket::VIPTicket(const Ticket& ticket, VIPType theType) :Ticket(ticket), type(theType)
 {
 }
 

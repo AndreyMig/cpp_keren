@@ -30,6 +30,6 @@ void RollerCoaster::setNumOfLoops(int numOfLoops)
 //print
 ostream& operator<<(ostream& os, const RollerCoaster& rc)
 {
-	os << "** RollerCoaster(" << height << " m " << numOfLoops << " loops" << ") **" << (Facility)rc;
+	os << "** RollerCoaster(" << rc.height << " m " << rc.numOfLoops << " loops" << ") **" << (Facility)rc;
 	return os;
 }
