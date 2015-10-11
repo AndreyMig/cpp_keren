@@ -5,6 +5,7 @@
 #include "facility.h"
 #include "operator.h"
 #include "guest.h"
+#include <list>
 using namespace std;
  
 class Park
@@ -22,7 +23,7 @@ public:
 	const Guest** getGuests() const;
 	Facility**  getFacilities(); //gettets for changing
 	Operator** getOperators();
-	Guest** getGuests();
+	list<Guest*> Park::getGuests();
 
 	//setters
 	void setName(const char* name);
@@ -48,7 +49,8 @@ private:
 	char* name;
 	Facility** facilities; 
 	Operator** operators;
-	Guest** guests;
+	list<Guest*> guestsList;
+	//Guest** guests;
 	int numOfFacilities;
 	int numOfOperators;
 	int numOfGuests;

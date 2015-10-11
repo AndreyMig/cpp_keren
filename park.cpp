@@ -62,8 +62,8 @@ Operator** Park::getOperators(){
 //const Guest** Park::getGuests() const{
 //	return this->guests;
 //}
-Guest** Park::getGuests(){
-	return this->guests;
+list<Guest*> Park::getGuests(){
+	return this->guestsList;
 }
 
 
@@ -108,32 +108,30 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 
 /*Add guest to park*/
 const Park& Park::operator+=(Guest& guest){
-
-	this->guests[this->numOfGuests++] = &guest;
+	this->guestsList.push_back(&guest);
+	this->numOfGuests++;
+	//this->guests[this->numOfGuests++] = &guest;
 	return *this;
 }
+
 /*Remove guest from park*/
 const Park& Park::operator-=(const Guest& guest){
-	const int guestIndex = findGuestInParkByName(guest.getName());
-	if (guestIndex > 0)
+	
+	
+	list<Guest*>::iterator  itr = this->guestsList.begin();
+	list<Guest*>::iterator  itrEnd = this->guestsList.end();
+	for (; itr != itrEnd; ++itr)
 	{
-		this->guests[this->numOfGuests++] = &guest;
-	}
+		if (strcmp(((Guest*)*itr)->getName(), guest.getName()) == 0)
+		{
+			this->guestsList.erase(itr);
+			return *this;
+		}
 		
-
-}
-
-/*Iterates over all facilities to find a specific guest by name*/
-const int Park::findGuestInParkByName(const char* guestName) const
-{
-	for (int i = 0; i < numOfGuests; i++)
-	{
-		if (strcmp(this->guests[i]->getName(), guestName) == 0)
-			return i;
 	}
 
-	return -1;
 }
+
 
 Park::~Park(){
 	//TODO DESTROY ALL DYNAMIC
