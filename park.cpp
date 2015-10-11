@@ -86,7 +86,8 @@ const Park& Park::operator=(const Park& other)
 	return *this;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip) {
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip) 
+{
 
 	//Check that the max number of guests is not exceeded
 	if (this->numOfGuests < this->maxGuests)
@@ -107,7 +108,8 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 }
 
 /*Add guest to park*/
-const Park& Park::operator+=(Guest& guest){
+const Park& Park::operator+=(Guest& guest)
+{
 	this->guestsList.push_back(&guest);
 	this->numOfGuests++;
 	//this->guests[this->numOfGuests++] = &guest;
@@ -115,7 +117,8 @@ const Park& Park::operator+=(Guest& guest){
 }
 
 /*Remove guest from park*/
-const Park& Park::operator-=(const Guest& guest){
+const Park& Park::operator-=(const Guest& guest)
+{
 	
 	//TODO TEST
 
@@ -130,7 +133,7 @@ const Park& Park::operator-=(const Guest& guest){
 		}
 		
 	}
-
+	return *this;
 }
 
 

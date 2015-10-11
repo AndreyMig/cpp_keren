@@ -11,7 +11,7 @@ void Operator::setID(int id){
 bool Operator::checkTicket(const Ticket& ticket) const{
 
 	//TODO implement check ticket
-
+	return true;
 }
 
 

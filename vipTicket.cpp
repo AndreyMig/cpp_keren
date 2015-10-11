@@ -6,11 +6,6 @@ VIPTicket::VIPTicket(const Ticket& ticket, VIPType theType) :Ticket(ticket), typ
 {
 }
 
-VIPType VIPTicket::getTicketType() const
-{
-	return type;
-}
-
 void VIPTicket::setType(VIPType type)
 {
 	this->type = type;
@@ -21,4 +16,9 @@ ostream& operator<<(ostream& os, const VIPTicket& t)
 {
 	os << (Ticket&)t << " VIP details: " << vipTypes[t.type];
 	return os;
+}
+
+VIPTicket::VIPType VIPTicket::getTicketType() const
+{
+	return type;
 }
