@@ -28,7 +28,7 @@ public:
 		THRILLED
 	};
 
-	Guest(const Person& person, AgeType type, Feel feel);
+	Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket);
 
 	//getters
 	const Ticket* getTicket() const;
@@ -45,8 +45,8 @@ public:
 	friend ostream& operator<<(ostream& os, const Guest& g);
 
 private:
-	Ticket* ticket;
-	AgeType type;
+	const Ticket* ticket;
+	const AgeType type;
 	Feel feel;
 };
 

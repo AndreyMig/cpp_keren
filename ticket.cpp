@@ -2,7 +2,7 @@
 #include "ticket.h"
 #include <string.h>
 
-Ticket::Ticket(const char* date, float price) throw(const char*) : price(price) 
+Ticket::Ticket(const char* date, double price) throw(const char*) : price(price) 
 {
 	setDate(date);
 }
@@ -12,7 +12,7 @@ Ticket::~Ticket()
 }
 
 //getters
-float Ticket::getPrice() const
+double Ticket::getPrice() const
 {
 	return price;
 }
@@ -23,7 +23,7 @@ const char* Ticket::getDate() const
 }
 
 //setters
-void Ticket::setPrice(float price)
+void Ticket::setPrice(double price)
 {
 	this->price = price;
 }

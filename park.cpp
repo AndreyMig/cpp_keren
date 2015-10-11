@@ -1,6 +1,9 @@
 #pragma warning(disable: 4996)
 #include "park.h"
 
+const double Park::TICKET_PRICE = 150.0;
+const double Park::VIP_TICKET_PRICE = 250.0;
+
 Park::Park(const char* name, int maxFacilities, int maxOperators, int maxGuests)
 	: name(NULL), maxFacilities(maxFacilities), maxOperators(maxOperators), maxGuests(maxGuests)
 {
@@ -19,6 +22,12 @@ Park::Park(const Park& other) : name(NULL)
 	*this = other;
 }
 
+Park::~Park(){
+	delete[] facilities;
+	delete[] operators;
+	delete[] guests;
+}
+
 //setters
 void Park::setName(const char* name)
 {
@@ -33,33 +42,22 @@ const char* Park::getName() const
 }
 
 //TODO I removed all const returning get functions 
-//const Facility*const* Park::getFacilities() const
-//{
-//	return this->facilities;
-//}
-
-Facility** Park::getFacilities()
+const Facility*const* Park::getFacilities() const
 {
 	return this->facilities;
 }
-//
-//const Operator** Park::getOperators() const
-//{
-//	return this->operators;
-//}
-Operator** Park::getOperators()
+
+const Operator*const* Park::getOperators() const
 {
 	return this->operators;
 }
-//
-//const Guest** Park::getGuests() const
-//{
-//	return this->guests;
-//}
-Guest** Park::getGuests()
+
+
+const Guest*const* Park::getGuests() const
 {
 	return this->guests;
 }
+
 
 
 //operators
@@ -76,35 +74,33 @@ const Park& Park::operator=(const Park& other)
 	return *this;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, bool isVip) 
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, char date[], bool isVip, VIPTicket::VIPType vipKind) throw (const char*)
 {
 
 	//Check that the max number of guests is not exceeded
 	if (this->numOfGuests >= this->maxGuests)
 	{
-		//TODO how to handle max num exceeded
 		throw "Max number of guests, Can't add more.";
 	}
 
-	Guest *newGuest = new Guest(person, type, feel);
-	//TODO adjust ticket
 	Ticket *t;
+
 	if(isVip)
+		t = new VIPTicket(Ticket(date,VIP_TICKET_PRICE),vipKind);
+	else
+		t = new Ticket(date,VIP_TICKET_PRICE);
+
+	Guest *newGuest = new Guest(person, type, feel, *t);
 
 	*this += *newGuest;
 
-
-	//TODO check that it is correct that it returns value not address
 	return *newGuest;
-
 }
 
 /*Add guest to park*/
 const Park& Park::operator+=(Guest& guest)
 {
-	this->guestsList.push_back(&guest);
-	this->numOfGuests++;
-	//this->guests[this->numOfGuests++] = &guest;
+	this->guests[this->numOfGuests++] = &guest;
 	return *this;
 }
 
@@ -114,17 +110,6 @@ const Park& Park::operator-=(const Guest& guest)
 	
 	//TODO TEST
 
-	list<Guest*>::iterator  itr = this->guestsList.begin();
-	list<Guest*>::iterator  itrEnd = this->guestsList.end();
-	for (; itr != itrEnd; ++itr)
-	{
-		if (strcmp(((Guest*)*itr)->getName(), guest.getName()) == 0)
-		{
-			this->guestsList.erase(itr);
-			return *this;
-		}
-		
-	}
 	return *this;
 }
 
@@ -137,11 +122,5 @@ ostream& operator<<(ostream& os, const Park& p)
 	os << "Number of Guests in park  : " << p.numOfGuests << "out of " << p.maxGuests << "possible" << endl;
 	
 	return os;
-}
-
-
-
-Park::~Park(){
-	//TODO DESTROY ALL DYNAMIC
 }
 

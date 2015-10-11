@@ -4,7 +4,7 @@
 const char* ageTypes[3] = {"Child", "Adult", "Elder"};
 const char* feels[3] = {"Happy", "Afraid", "Thrilled"};
 
-Guest::Guest(const Person& person, AgeType type, Feel feel) : Person(person), type(type), feel(feel), ticket(NULL)
+Guest::Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket) : Person(person), type(type), feel(feel), ticket(&ticket)
 {
 }
 

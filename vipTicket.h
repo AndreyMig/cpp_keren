@@ -11,7 +11,7 @@ public:
 	enum VIPType
 	{
 		FIRST_CLASS,
-		FAST_LINE
+		FREE_FOOD
 	};
 
 	VIPTicket(const Ticket& ticket, VIPType theType) ;
