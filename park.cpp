@@ -38,7 +38,8 @@ const char* Park::getName() const
 //	return this->facilities;
 //}
 
-Facility** Park::getFacilities(){
+Facility** Park::getFacilities()
+{
 	return this->facilities;
 }
 //
@@ -46,15 +47,18 @@ Facility** Park::getFacilities(){
 //{
 //	return this->operators;
 //}
-Operator** Park::getOperators(){
+Operator** Park::getOperators()
+{
 	return this->operators;
 }
 //
-//const Guest** Park::getGuests() const{
+//const Guest** Park::getGuests() const
+//{
 //	return this->guests;
 //}
-list<Guest*> Park::getGuests(){
-	return this->guestsList;
+Guest** Park::getGuests()
+{
+	return this->guests;
 }
 
 
@@ -76,14 +80,16 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 {
 
 	//Check that the max number of guests is not exceeded
-	if (this->numOfGuests < this->maxGuests)
+	if (this->numOfGuests >= this->maxGuests)
 	{
 		//TODO how to handle max num exceeded
-		//throw "Max number of guests, Can't add more.";
+		throw "Max number of guests, Can't add more.";
 	}
 
 	Guest *newGuest = new Guest(person, type, feel);
-
+	//TODO adjust ticket
+	Ticket *t;
+	if(isVip)
 
 	*this += *newGuest;
 

@@ -2,6 +2,7 @@
 #define __GUEST_H
 
 #include <ostream>
+#include <iostream>
 #include "person.h"
 #include "ticket.h"
 using namespace std;
@@ -38,7 +39,7 @@ public:
 	void setFeel(Feel feel);
 
 	//actions
-	void haveFun() const; //print the guest feeling
+	void haveFun(ostream& os=cout) const; //print the guest feeling
 
 	//print
 	friend ostream& operator<<(ostream& os, const Guest& g);

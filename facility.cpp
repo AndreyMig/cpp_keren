@@ -95,7 +95,7 @@ void Facility::setMaxNumOfPassengers(int maxNumOfPassangers)
 		//}
 
 		//this->numOfPassengers -= takeOffRide;
-		throw "Can't limit the capacity of facility to " << maxNumOfPassangers << " because there are already " << numOfPassengers << " passengers";
+		throw "Can't limit the capacity of facility because there are more people in the facility.";
 	}
 	else
 	{
