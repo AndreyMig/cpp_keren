@@ -27,12 +27,12 @@ int main(int argc, const char* argv[])
 	RollerCoaster rollerCoasterB(Facility("ANACONDA", 16, ageTypes, &o3), 30, 2);
 	ageTypes[2] = false;
 	Facility f("HYDRA", 12, ageTypes, &o4);
-	//WaterRollerCoaster waterRollerCoaster(WaterSlide(f,1000), RollerCoaster(f, 40, 7));
+	WaterRollerCoaster waterRollerCoaster(WaterSlide(f,1000), RollerCoaster(f, 40, 7));
 
 	disneyWorld += waterSlide;
 	disneyWorld += rollerCoasterA;
 	disneyWorld += rollerCoasterB;
-	//disneyWorld += waterRollerCoaster;
+	disneyWorld += waterRollerCoaster;
 
 	//create persons to enter park
 	Person p1("Adam",13,1.25);
@@ -66,9 +66,9 @@ int main(int argc, const char* argv[])
 	rollerCoasterB += g4;
 	rollerCoasterA.start();
 
-	//waterRollerCoaster += g1;
-	//waterRollerCoaster += g2;
-	//waterRollerCoaster += g3;
-	//waterRollerCoaster += g4;
-	//waterRollerCoaster.start();
+	waterRollerCoaster += g1;
+	waterRollerCoaster += g2;
+	waterRollerCoaster += g3;
+	waterRollerCoaster += g4;
+	waterRollerCoaster.start();
 }

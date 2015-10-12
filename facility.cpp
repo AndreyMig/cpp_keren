@@ -17,7 +17,7 @@ name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), 
 {
 	setName(name);
 
-	guests = new Guest*[this->maxNumOfPassangers];
+	guests = new const Guest*[this->maxNumOfPassangers];
 	this->numOfPassengers = 0;
 
 	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
@@ -42,7 +42,7 @@ const Facility& Facility::operator=(const Facility& other)
 		setMaxNumOfPassengers(other.maxNumOfPassangers);
 		setNeedVIPTicket(other.needVIPTicket);
 
-		guests = new Guest*[this->maxNumOfPassangers];
+		guests = new const Guest*[this->maxNumOfPassangers];
 		copyArrays(other.ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
 
 		this->numOfPassengers = other.numOfPassengers;
@@ -74,7 +74,7 @@ const bool* Facility::getAgeTypeAvailable() const
 	return ageTypeAvailable;
 }
 
-Guest** Facility::getGuests()
+const Guest*const* Facility::getGuests() const
 {
 	return guests;
 }

@@ -19,7 +19,7 @@ public:
 	bool doesNeedVIPTicket() const;
 	const char* getName() const;
 	const bool* getAgeTypeAvailable() const;
-	Guest** getGuests();
+	const Guest*const* getGuests() const;
 
 	//setters
 	void setMaxNumOfPassengers(int maxNumOfPassangers); //maximum number of guests to get on ride
