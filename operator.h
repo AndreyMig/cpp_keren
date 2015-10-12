@@ -14,10 +14,6 @@ public:
 	int getID() const;
 	void setID(int id);
 
-	//actions
-	bool checkTicket(const Ticket& ticket) const; //check if ticket is relevant for the ride 
-												  //(AgeTypeAvailable of a facility and if VipTicket required)
-
 	//print
 	friend ostream& operator<<(ostream& os, const Operator& o);
 

@@ -17,7 +17,7 @@ name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), 
 {
 	setName(name);
 
-	guests = new const Guest*[this->maxNumOfPassangers];
+	guests = new Guest*[this->maxNumOfPassangers];
 	this->numOfPassengers = 0;
 
 	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
@@ -42,6 +42,7 @@ const Facility& Facility::operator=(const Facility& other)
 		setMaxNumOfPassengers(other.maxNumOfPassangers);
 		setNeedVIPTicket(other.needVIPTicket);
 
+		guests = new Guest*[this->maxNumOfPassangers];
 		copyArrays(other.ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
 
 		this->numOfPassengers = other.numOfPassengers;
@@ -73,7 +74,7 @@ const bool* Facility::getAgeTypeAvailable() const
 	return ageTypeAvailable;
 }
 
-const Guest*const* Facility::getGuests() const
+Guest** Facility::getGuests()
 {
 	return guests;
 }
@@ -122,17 +123,19 @@ void Facility::setAgeTypeByIndex(int index, bool allowed)
 
 //actions
 //start the facility (start each passenger "have fun" action, and remove guests!!!!) 
-void Facility::start() const
+void Facility::start()
 {
 	for(int i = 0; i < numOfPassengers; i++)
 	{
 		guests[i]->haveFun();
 		guests[i] = NULL;
 	}
+
+	numOfPassengers = 0;
 }
 
 // add a passenger to passengers list 
-const Facility& Facility::operator+=(const Guest& passenger) throw(const char*)
+const Facility& Facility::operator+=(Guest& passenger) throw(const char*)
 {
 	//no more place
 	if(numOfPassengers == maxNumOfPassangers)
@@ -197,6 +200,7 @@ const Guest* Facility::findGuest(const char* guestName) const
 	return NULL;
 }
 
+//THIS IS NOT GOOD (Keren to Shirin)
 const Guest& Facility::operator[] (const char* guestName) const throw(const char*)
 {
 	const Guest* g = findGuest(guestName);

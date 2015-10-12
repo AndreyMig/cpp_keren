@@ -80,7 +80,7 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 	//Check that the max number of guests is not exceeded
 	if (this->numOfGuests >= this->maxGuests)
 	{
-		throw "Max number of guests, Can't add more.";
+		throw "Reached guests capacity.";
 	}
 
 	Ticket *t;
@@ -97,9 +97,31 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 	return *newGuest;
 }
 
-/*Add guest to park*/
-const Park& Park::operator+=(Guest& guest)
+//TODO: check
+int findPointerInArray(const void* lookFor, void** lookIn, int size)
 {
+	for(int i = 0; i < size; i++)
+	{
+		if(lookIn[i] == lookFor)
+			return i;
+	}
+	return -1;
+}
+
+//TODO: check
+void closeGaps(int start, void** arr ,int& originalSize)
+{
+	for(int i = start+1; i < originalSize; i++)
+		arr[i-1] = arr[i];
+	originalSize--;
+}
+
+/*Add guest to park*/
+const Park& Park::operator+=(Guest& guest) throw (const char*)
+{
+	if (this->numOfGuests >= this->maxGuests)
+		throw "Reached guests capacity.";
+
 	this->guests[this->numOfGuests++] = &guest;
 	return *this;
 }
@@ -107,12 +129,53 @@ const Park& Park::operator+=(Guest& guest)
 /*Remove guest from park*/
 const Park& Park::operator-=(const Guest& guest)
 {
+	int ix = findPointerInArray(&guest, (void**)guests, numOfGuests);
+	if(ix == -1)
+		throw "Guest not found";
 	
-	//TODO TEST
+	closeGaps(ix, (void**)guests, numOfGuests);
 
 	return *this;
 }
+//add facility to park
+const Park& Park::operator+=(Facility& facility) throw (const char*)
+{
+	if (this->numOfFacilities >= this->maxFacilities)
+		throw "Reached guests capacity.";
 
+	this->facilities[this->numOfFacilities++] = &facility;
+	return *this;
+}
+// remove facility from park
+const Park& Park::operator-=(const Facility& facility)
+{
+	int ix = findPointerInArray(&facility, (void**)facilities, numOfFacilities);
+	if(ix == -1)
+		throw "Facility not found";
+	
+	closeGaps(ix, (void**)facilities, numOfFacilities);
+	return *this;
+}
+
+//add operator to park
+const Park& Park::operator+=(Operator& _operator) throw (const char*)
+{
+	if (this->numOfOperators >= this->maxOperators)
+		throw "Reached operators capacity.";
+
+	this->operators[this->numOfOperators++] = &_operator;
+	return *this;
+}
+// remove operator from park
+const Park& Park::operator-=(const Operator& _operator)
+{
+	int ix = findPointerInArray(&_operator, (void**)operators, numOfOperators);
+	if(ix == -1)
+		throw "Operator not found";
+	
+	closeGaps(ix, (void**)operators, numOfOperators);
+	return *this;
+}
 
 //print
 ostream& operator<<(ostream& os, const Park& p)
@@ -120,7 +183,7 @@ ostream& operator<<(ostream& os, const Park& p)
 	os << "Park : " << p.name << endl;
 	os << "Number of facilities in park  : " << p.numOfFacilities << "out of "<< p.maxFacilities <<"possible"<< endl;
 	os << "Number of Guests in park  : " << p.numOfGuests << "out of " << p.maxGuests << "possible" << endl;
-	
+
 	return os;
 }
 
