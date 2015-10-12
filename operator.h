@@ -9,7 +9,7 @@ using namespace std;
 class Operator : public Person
 {
 public:
-	Operator(const Person& person,int id);
+	Operator(const Person& person);
 
 	int getID() const;
 	void setID(int id);
@@ -18,6 +18,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Operator& o);
 
 private:
+	static int ID_GEN;
 	int id;
 };
 

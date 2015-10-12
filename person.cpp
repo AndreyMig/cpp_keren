@@ -67,7 +67,7 @@ void Person::setHeight(double height) throw (const char*)
 //print
 ostream& operator<<(ostream& os, const Person& p)
 {
-	os << p.name << "(" << p.age << "yo," << p.height << "m)";
+	os << p.name << " (" << p.age << "yo," << p.height << "m)";
 	return os;
 }
 

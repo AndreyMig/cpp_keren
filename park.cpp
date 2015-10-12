@@ -180,10 +180,20 @@ const Park& Park::operator-=(const Operator& _operator)
 //print
 ostream& operator<<(ostream& os, const Park& p)
 {
-	os << "Park : " << p.name << endl;
-	os << "Number of facilities in park  : " << p.numOfFacilities << "out of "<< p.maxFacilities <<"possible"<< endl;
-	os << "Number of Guests in park  : " << p.numOfGuests << "out of " << p.maxGuests << "possible" << endl;
-
+	os << ">>>>>>>> Welcome to the Park : " << p.name << " <<<<<<<<" << endl;
+	if(p.numOfFacilities > 0)
+	{
+		os << "* Facilities *" << endl;
+		for(int i = 0; i < p.numOfFacilities; i++)
+		{
+			os << "--------------------" << endl;
+			os << *p.facilities[i] << endl;
+			os << "--------------------" << endl;
+		}
+	}
+	else
+		os << "Park has no facilites yet." << endl;
+	os << endl;
 	return os;
 }
 

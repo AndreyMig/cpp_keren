@@ -1,5 +1,4 @@
 #include "guest.h"
-#include <iostream>
 
 const char* ageTypes[3] = {"Child", "Adult", "Elder"};
 const char* feels[3] = {"Happy", "Afraid", "Thrilled"};

@@ -28,7 +28,7 @@ public:
 	void setAgeTypeByIndex(int index, bool allowed);
 
 	//actions
-	void start();									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 
+	void start(ostream& o=cout);									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 
 	const Facility& operator+=(Guest& passenger); // add a passenger to passengers list only if operator accept!!!! (call for operator 'checkTicket' method)
 	const Facility& operator-=(const Guest& passenger); // remove a passenger to passengers list
 	const Guest& Facility::operator[] (const char* guestName) const;

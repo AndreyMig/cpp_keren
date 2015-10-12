@@ -8,10 +8,10 @@ int main(int argc, const char* argv[])
 	//init park
 	Park disneyWorld("Disney World",10,15,100);
 	//init operators
-	Operator o1(Person("Keren", 19, 1.85), 1);
-	Operator o2(Person("Daniel", 21, 1.75), 2);
-	Operator o3(Person("Amir", 26, 1.60), 3);
-	Operator o4(Person("Eytan", 28, 1.80), 4);
+	Operator o1(Person("Keren", 19, 1.85));
+	Operator o2(Person("Daniel", 21, 1.75));
+	Operator o3(Person("Amir", 26, 1.60));
+	Operator o4(Person("Eytan", 28, 1.80));
 
 	disneyWorld += o1;
 	disneyWorld += o2;
@@ -58,17 +58,14 @@ int main(int argc, const char* argv[])
 	rollerCoasterA += g2;
 	rollerCoasterA += g3;
 	rollerCoasterA += g4;
-	rollerCoasterA.start();
-
-	rollerCoasterB += g1;
-	rollerCoasterB += g2;
-	rollerCoasterB += g3;
-	rollerCoasterB += g4;
-	rollerCoasterA.start();
 
 	waterRollerCoaster += g1;
 	waterRollerCoaster += g2;
 	waterRollerCoaster += g3;
 	waterRollerCoaster += g4;
+
+	cout << disneyWorld << endl;
+	rollerCoasterA.start();
 	waterRollerCoaster.start();
+	cout << disneyWorld << endl;
 }

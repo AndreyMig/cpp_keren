@@ -123,14 +123,15 @@ void Facility::setAgeTypeByIndex(int index, bool allowed)
 
 //actions
 //start the facility (start each passenger "have fun" action, and remove guests!!!!) 
-void Facility::start()
+void Facility::start(ostream& o)
 {
+	o << "** " << name << " started **" << endl;
 	for(int i = 0; i < numOfPassengers; i++)
 	{
-		guests[i]->haveFun();
+		guests[i]->haveFun(o);
 		guests[i] = NULL;
 	}
-
+	o << endl;
 	numOfPassengers = 0;
 }
 
@@ -219,13 +220,17 @@ ostream& operator<<(ostream& os, const Facility& f)
 	if(f.needVIPTicket)
 		os << "[Facility Require VIP Ticket]" << endl;
 
-	os << "Waiting in line:" << endl;
-	for(int i = 0; i < f.numOfPassengers; i++)
+	if(f.numOfPassengers > 0)
 	{
-		os << *f.guests[i] << endl;
+		os << "Waiting in line:" << endl;
+		for(int i = 0; i < f.numOfPassengers; i++)
+		{
+			os << *f.guests[i] << endl;
+		}
 	}
+	else
+		os << "Facility has no waiting line." << endl;
 
 	os << endl;
-
 	return os;
 }

@@ -1,6 +1,8 @@
 #include "operator.h"
 
-Operator::Operator(const Person& person,int id) : Person(person), id(id)
+int Operator::ID_GEN = 1000;
+
+Operator::Operator(const Person& person) : Person(person), id(ID_GEN++)
 {
 }
 
@@ -14,7 +16,7 @@ void Operator::setID(int id){
 //print
 ostream& operator<<(ostream& os, const Operator& o)
 {
-	os << "Operator : " << o.id << endl;
+	os << o.name << " (employee " << o.id << ")" << endl;
 	return os;
 }
 
