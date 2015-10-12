@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996)
+#pragma warning(disable: 4996 4290)
 #include "park.h"
 
 const double Park::TICKET_PRICE = 150.0;

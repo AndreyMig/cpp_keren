@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996)
+#pragma warning(disable: 4996 4290)
 #include "person.h"
 
 Person::Person(const char* name, int age, double height) : name(NULL), age(age), height(height)

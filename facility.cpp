@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996)
+#pragma warning(disable: 4996 4290)
 
 #include "facility.h"
 #include "vipTicket.h"
@@ -21,7 +21,7 @@ name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), 
 	this->numOfPassengers = 0;
 
 	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
-}
+} 
 
 Facility::Facility(const Facility& other) : name(NULL)
 {
