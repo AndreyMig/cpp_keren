@@ -12,7 +12,6 @@ public:
 	Operator(const Person& person);
 
 	int getID() const;
-	void setID(int id);
 
 	//print
 	friend ostream& operator<<(ostream& os, const Operator& o);

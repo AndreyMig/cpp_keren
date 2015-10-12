@@ -190,25 +190,13 @@ const Facility& Facility::operator-=(const Guest& passenger) throw(const char*)
 	return *this;
 }
 
-const Guest* Facility::findGuest(const char* guestName) const
+const Facility& Facility::operator--() throw (const char*)
 {
-	for(int i = 0; i < numOfPassengers; i++)
-	{
-		if(strcmp(guests[i]->getName(),guestName) == 0)
-			return guests[i];
-	}
+	if(numOfPassengers > maxNumOfPassangers-1)
+		throw "Can't change the waiting line size, there are people waiting in line";
 
-	return NULL;
-}
-
-//THIS IS NOT GOOD (Keren to Shirin)
-const Guest& Facility::operator[] (const char* guestName) const throw(const char*)
-{
-	const Guest* g = findGuest(guestName);
-	if(g)
-		return *g;
-
-	throw "Guest not found..";
+	maxNumOfPassangers--;
+	return *this;
 }
 
 //print

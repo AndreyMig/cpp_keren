@@ -132,7 +132,7 @@ const Park& Park::operator-=(const Guest& guest)
 	int ix = findPointerInArray(&guest, (void**)guests, numOfGuests);
 	if(ix == -1)
 		throw "Guest not found";
-	
+
 	closeGaps(ix, (void**)guests, numOfGuests);
 
 	return *this;
@@ -152,7 +152,7 @@ const Park& Park::operator-=(const Facility& facility)
 	int ix = findPointerInArray(&facility, (void**)facilities, numOfFacilities);
 	if(ix == -1)
 		throw "Facility not found";
-	
+
 	closeGaps(ix, (void**)facilities, numOfFacilities);
 	return *this;
 }
@@ -172,9 +172,29 @@ const Park& Park::operator-=(const Operator& _operator)
 	int ix = findPointerInArray(&_operator, (void**)operators, numOfOperators);
 	if(ix == -1)
 		throw "Operator not found";
-	
+
 	closeGaps(ix, (void**)operators, numOfOperators);
 	return *this;
+}
+
+
+const Operator& Park::operator[] (int id) const throw(const char*)
+{
+	const Operator* g = NULL;
+
+	for(int i = 0; i < numOfOperators; i++)
+	{
+		if(operators[i]->getID() == id)
+		{
+			g = operators[i];
+			break;
+		}
+	}
+
+	if(g)
+		return *g;
+
+	throw "Operator not found..";
 }
 
 //print
