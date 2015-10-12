@@ -58,8 +58,6 @@ const Guest*const* Park::getGuests() const
 	return this->guests;
 }
 
-
-
 //operators
 const Park& Park::operator=(const Park& other)
 {
@@ -97,7 +95,6 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 	return *newGuest;
 }
 
-//TODO: check
 int findPointerInArray(const void* lookFor, void** lookIn, int size)
 {
 	for(int i = 0; i < size; i++)
@@ -108,7 +105,6 @@ int findPointerInArray(const void* lookFor, void** lookIn, int size)
 	return -1;
 }
 
-//TODO: check
 void closeGaps(int start, void** arr ,int& originalSize)
 {
 	for(int i = start+1; i < originalSize; i++)
