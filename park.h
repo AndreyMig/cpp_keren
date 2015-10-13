@@ -22,7 +22,7 @@ public:
 
 	//getters
 	const string& getName() const;
-	const vector<Facility*> getFacilities() const;
+	const vector<Facility*> getFacilities() const; // TODO
 	const vector<Operator*> getOperators() const;
 	const MyLinkedList<Guest*> getGuests() const;
 
@@ -50,6 +50,10 @@ private:
 	vector<Facility*> facilities;
 	vector<Operator*> operators;
 	MyLinkedList<Guest*> guests;
+
+
+	Park(const Park& other);
+	const Park& operator=(const Park& other);
 };
 
 #endif

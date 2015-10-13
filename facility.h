@@ -28,8 +28,8 @@ public:
 
 	//actions
 	void start(ostream& o=cout);									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 
-	const Facility& operator+=(Guest& passenger); // add a passenger to passengers list only if operator accept!!!! (call for operator 'checkTicket' method)
-	const Facility& operator-=(const Guest& passenger); // remove a passenger to passengers list
+	const Facility& operator+=(Guest& passenger);					// add a passenger to passengers list only if operator accept!!!! (call for operator 'checkTicket' method)
+	const Facility& operator-=(const Guest& passenger);				// remove a passenger to passengers list
 
 	//print
 	friend ostream& operator<<(ostream& os, const Facility& f);
@@ -42,8 +42,8 @@ protected:
 	vector<const Guest*> guests;
 	Operator* mainOperator;
 
-private:
-	const Guest* findGuest(const string guestName) const;
+	Facility(const Facility& other);
+	const Facility& operator=(const Facility& other);
 };
 
 #endif

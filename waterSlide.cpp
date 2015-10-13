@@ -4,6 +4,15 @@ WaterSlide::WaterSlide(const Facility& facility, int literOfWater) : Facility(fa
 {
 }
 
+WaterSlide::WaterSlide(const WaterSlide& other) : Facility(other)
+{
+	*this = other;
+}
+
+WaterSlide::~WaterSlide()
+{
+}
+
 int WaterSlide::getLiterOfWater() const
 {
 	return literOfWater;

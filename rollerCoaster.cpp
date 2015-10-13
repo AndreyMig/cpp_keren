@@ -5,6 +5,15 @@ RollerCoaster::RollerCoaster(const Facility&  facility,int height,int numOfLoops
 {
 }
 
+RollerCoaster::RollerCoaster(const RollerCoaster& other) : Facility(other)
+{
+	*this = other;
+}
+
+RollerCoaster::~RollerCoaster()
+{
+}
+
 //getters
 int RollerCoaster::getHeight() const
 {
@@ -26,10 +35,11 @@ void RollerCoaster::setNumOfLoops(int numOfLoops)
 {
 	this->numOfLoops = numOfLoops;
 }
-
+ 
 //print
 ostream& operator<<(ostream& os, const RollerCoaster& rc)
 {
-	os << "** RollerCoaster(" << rc.height << " m " << rc.numOfLoops << " loops" << ") **" << (Facility)rc;
+	os << "** RollerCoaster(" << rc.height << " m " << rc.numOfLoops << " loops" << ") **" << (Facility&)rc;
 	return os;
 }
+  

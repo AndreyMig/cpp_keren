@@ -9,7 +9,8 @@ class RollerCoaster : virtual public Facility
 {
 public:
 	RollerCoaster(const Facility&  facility,int height,int numOfLoops);
-	
+	virtual ~RollerCoaster();
+
 	//getters
 	int getHeight() const;
 	int getNumOfLoops() const;
@@ -24,6 +25,9 @@ public:
 protected:
 	int height;
 	int numOfLoops;
+
+	RollerCoaster(const RollerCoaster& other);
+	const RollerCoaster& operator=(const RollerCoaster& other);
 };
 
 #endif

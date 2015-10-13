@@ -11,8 +11,15 @@ Facility::Facility(const string& name, vector<bool> ageTypeAvailable, Operator* 
 	: name(name), mainOperator(mainOperator), needVIPTicket(needVIPTicket), ageTypeAvailable(ageTypeAvailable)
 {} 
 
+Facility::Facility(const Facility& other)
+{
+	*this = other;
+}
+
 Facility::~Facility()
 {}
+
+
 
 //getters
 bool Facility::doesNeedVIPTicket() const

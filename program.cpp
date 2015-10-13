@@ -21,10 +21,8 @@ int main(int argc, const char* argv[])
 		disneyWorld += o4;
 		
 		//init facilities
-		vector<bool> ageTypes;
-		ageTypes.push_back(true);
-		ageTypes.push_back(true);
-		ageTypes.push_back(false);
+		vector<bool> ageTypes(3,true);
+		ageTypes[2] = false;
 
 		WaterSlide waterSlide(Facility("KAMIKAZA" , ageTypes, &o1), 800);
 		
@@ -82,18 +80,8 @@ int main(int argc, const char* argv[])
 		cout << msg << endl;
 		cout << "Finishing.." << endl;
 	}
-
-
-	vector<bool> yyy(3,true);
-	Facility f("AAAA", yyy, new Operator(Person("aaa",1,1.1)), true);
-	Facility f1("AAAA", yyy, new Operator(Person("aaa",1,1.1)));
-
-	Guest g(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY, Ticket("1/1/11",12.5));
-	Guest g1(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY, Ticket("1/1/11",12.5));
-
-	Park p("Park");
-
-	Guest& gref = p.buyTicket(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY,"1/1/11", true);
-
+	Operator o1(Person("Keren", 19, 1.85));
+	vector<bool> ageTypes(3,true);
+	WaterSlide waterSlide(Facility("KAMIKAZA" , ageTypes, &o1), 800);
 
 }

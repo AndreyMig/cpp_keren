@@ -10,9 +10,6 @@ using namespace std;
  
 class Guest : public Person
 {
-private:
-	Guest(const Guest& other);
-	const Guest& operator=(const Guest& other);
 public:
 	static const int AgeTypeSize = 3;
 	enum AgeType
@@ -49,6 +46,9 @@ private:
 	const Ticket* ticket;
 	const AgeType type;
 	Feel feel;
+
+	Guest(const Guest& other);
+	const Guest& operator=(const Guest& other);
 };
 
 #endif

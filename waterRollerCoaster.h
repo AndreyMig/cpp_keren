@@ -4,7 +4,7 @@
 #include <ostream>
 #include "waterSlide.h"
 #include "rollerCoaster.h"
-#include "operator.h"
+
 using namespace std;
 
 class WaterRollerCoaster : public WaterSlide,public RollerCoaster
@@ -14,6 +14,10 @@ public:
 
 	//print
 	friend ostream& operator<<(ostream& os, const WaterRollerCoaster& wrc);
+
+private:
+	WaterRollerCoaster(const WaterRollerCoaster& other);
+	const WaterRollerCoaster& operator=(const WaterRollerCoaster& other);
 };
 
 #endif
