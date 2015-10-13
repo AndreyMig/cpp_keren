@@ -23,6 +23,7 @@ int main(int argc, const char* argv[])
 		//init facilities
 		bool ageTypes[] = {true, true, false};
 		WaterSlide waterSlide(Facility("KAMIKAZA", 2 , ageTypes, &o1), 800);
+		
 		ageTypes[2] = true;
 		RollerCoaster rollerCoasterA(Facility("BALERINE", 30, ageTypes, &o2), 4, 0);
 		ageTypes[0] = false;

@@ -12,25 +12,23 @@ void copyArrays(const bool* src, bool* dst, int size)
 		dst[i] = src[i];
 }
 
-Facility::Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket) : 
-name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), needVIPTicket(needVIPTicket)
+Facility::Facility(const string name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket) : 
+name(""), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), needVIPTicket(needVIPTicket)
 {
 	setName(name);
-
 	guests = new const Guest*[this->maxNumOfPassangers];
 	this->numOfPassengers = 0;
 
 	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
 } 
 
-Facility::Facility(const Facility& other) : name(NULL)
+Facility::Facility(const Facility& other) : name("")
 {
 	*this = other;
 }
 
 Facility::~Facility()
 {
-	delete[] name;
 	delete[] guests;
 }
 
@@ -64,7 +62,7 @@ bool Facility::doesNeedVIPTicket() const
 	return needVIPTicket;
 }
 
-const char* Facility::getName() const
+const string Facility::getName() const
 {
 	return name;
 }
@@ -109,10 +107,9 @@ void Facility::setNeedVIPTicket(bool needVIPTicket)
 	this->needVIPTicket = needVIPTicket;
 }
 
-void Facility::setName(const char* name)
+void Facility::setName(const string name)
 {
-	delete[] this->name;
-	this->name = strdup(name);
+	this->name = name;
 }
 
 void Facility::setAgeTypeByIndex(int index, bool allowed)
@@ -202,7 +199,7 @@ const Facility& Facility::operator--() throw (const char*)
 //print
 ostream& operator<<(ostream& os, const Facility& f)
 {
-	os << "Facility : " << f.name << endl;
+	os << "Facility : " << &f.name << endl;
 	os << "Operator : " << *f.mainOperator << endl;
 
 	if(f.needVIPTicket)

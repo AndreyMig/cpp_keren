@@ -4,12 +4,14 @@
 #include <ostream>
 #include "guest.h"
 #include "operator.h"
+#include <string>
+
 using namespace std;
  
 class Facility
 {
 public:
-	Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket = false);
+	Facility(const string name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket = false);
 	Facility(const Facility& other);
 	virtual ~Facility();
 	const Facility& operator=(const Facility& other);
@@ -17,14 +19,14 @@ public:
 	//getters
 	int getMaxNumOfPassengers() const;
 	bool doesNeedVIPTicket() const;
-	const char* getName() const;
+	const string getName() const;
 	const bool* getAgeTypeAvailable() const;
 	const Guest*const* getGuests() const;
 
 	//setters
 	void setMaxNumOfPassengers(int maxNumOfPassangers); //maximum number of guests to get on ride
 	void setNeedVIPTicket(bool needVIPTicket);
-	void setName(const char* name);
+	void Facility::setName(const string name);
 	void setAgeTypeByIndex(int index, bool allowed);
 
 	//actions
@@ -37,7 +39,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Facility& f);
 
 protected:
-	char* name;
+	string name;
 	bool ageTypeAvailable[Guest::AgeTypeSize]; //array of age type available for this facility
 	bool needVIPTicket;
 	const Guest** guests; // array of guest on facility (dynamic)
