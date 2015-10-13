@@ -2,7 +2,7 @@
 #include "ticket.h"
 #include <string.h>
 
-Ticket::Ticket(const char* date, double price) throw(const char*) : price(price) 
+Ticket::Ticket(const string date, double price) throw(const string) : price(price)
 {
 	setDate(date);
 }
@@ -17,7 +17,7 @@ double Ticket::getPrice() const
 	return price;
 }
 
-const char* Ticket::getDate() const
+const string Ticket::getDate() const
 {
 	return date;
 }
@@ -28,14 +28,14 @@ void Ticket::setPrice(double price)
 	this->price = price;
 }
 
-void Ticket::setDate(const char* date) throw(const char*) 
+void Ticket::setDate(const string date) throw(const string)
 {
 	//check if date is in valid len
 	unsigned int sizeOfDate = sizeof(this->date)/sizeof(this->date[0]);
-	if(strlen(date) >= sizeOfDate)
+	if(this->date.length() >= sizeOfDate)
 		throw "Date is too long - do not exceed the format dd/mm/yyyy";
 
-	strcpy(this->date,date);
+	this->date = date;
 }
 
 //print

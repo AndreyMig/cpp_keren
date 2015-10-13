@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include <iostream>
+#include <string>
 #include "person.h"
 #include "ticket.h"
 using namespace std;

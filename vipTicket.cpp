@@ -1,6 +1,6 @@
 #include "vipTicket.h"
 
-const char* vipTypes[2] = {"First Class","Fast Line"};
+const string vipTypes[2] = { "First Class", "Fast Line" };
 
 VIPTicket::VIPTicket(const Ticket& ticket, VIPType theType) :Ticket(ticket), type(theType)
 {

@@ -2,22 +2,24 @@
 #define __PERSON_H
 
 #include <ostream>
+#include <string>
+
 using namespace std;
 using namespace std;
  
 class Person
 {
 public:
-	Person(const char* name, int age, double height);
+	Person(const string name, int age, double height);
 	virtual ~Person();
 
 	//getters
-	const char* getName() const;
+	const string getName() const;
 	int getAge() const;
 	double getHeight() const;
 
 	//setters
-	void setName(const char* name);
+	void setName(const string name);
 	void setAge(int age);
 	void setHeight(double height);
 
@@ -25,7 +27,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Person& p);
 
 protected:
-	char* name;
+	string name;
 	int age;
 	double height;
 

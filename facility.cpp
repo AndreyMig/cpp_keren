@@ -133,7 +133,7 @@ void Facility::start(ostream& o)
 }
 
 // add a passenger to passengers list 
-const Facility& Facility::operator+=(Guest& passenger) throw(const char*)
+const Facility& Facility::operator+=(Guest& passenger) throw(const string)
 {
 	//no more place
 	if(numOfPassengers == maxNumOfPassangers)
@@ -154,7 +154,7 @@ const Facility& Facility::operator+=(Guest& passenger) throw(const char*)
 }
 
 // remove a passenger to passengers list
-const Facility& Facility::operator-=(const Guest& passenger) throw(const char*)
+const Facility& Facility::operator-=(const Guest& passenger) throw(const string)
 {
 	int i;
 	bool found = false;
@@ -187,7 +187,7 @@ const Facility& Facility::operator-=(const Guest& passenger) throw(const char*)
 	return *this;
 }
 
-const Facility& Facility::operator--() throw (const char*)
+const Facility& Facility::operator--() throw (const string)
 {
 	if(numOfPassengers > maxNumOfPassangers-1)
 		throw "Can't change the waiting line size, there are people waiting in line";

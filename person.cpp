@@ -1,19 +1,19 @@
 #pragma warning(disable: 4996 4290)
 #include "person.h"
 
-Person::Person(const char* name, int age, double height) : name(NULL), age(age), height(height)
+Person::Person(const string name, int age, double height) : name(""), age(age), height(height)
 {
 	setName(name);
 }
 
-Person::Person(const Person& other) : name(NULL)
+Person::Person(const Person& other) : name("")
 {
 	*this = other;
 }
 
 Person::~Person()
 {
-	delete[] name;
+	//delete[] name;
 }
 
 const Person& Person::operator=(const Person& other)
@@ -28,7 +28,7 @@ const Person& Person::operator=(const Person& other)
 }
 
 //getters
-const char* Person::getName() const
+const string Person::getName() const
 {
 	return name;
 }
@@ -44,20 +44,20 @@ double Person::getHeight() const
 }
 
 //setters
-void Person::setName(const char* name)
+void Person::setName(const string name)
 {
-	delete[] this->name;
-	this-> name = strdup(name);
+	//delete[] this->name;
+	this->name = name;
 }
 
-void Person::setAge(int age) throw (const char*)
+void Person::setAge(int age) throw (const string)
 {
 	if(age < 0)
 		throw "Age must be greater than 0";
 	this->age = age;
 }
 
-void Person::setHeight(double height) throw (const char*)
+void Person::setHeight(double height) throw (const string)
 {
 	if(height < 0)
 		throw "Height must be greater than 0";

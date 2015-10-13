@@ -7,7 +7,7 @@
 #include "guest.h"
 #include "vipTicket.h"
 #include "MyLinkedList.h"
-
+#include <string>
 using namespace std;
 
 class Park
@@ -16,24 +16,24 @@ public:
 	static const double TICKET_PRICE;
 	static const double VIP_TICKET_PRICE;
 
-	Park(const char* name, int maxFacilities, int maxOperators, int maxGuests);
+	Park(const string name, int maxFacilities, int maxOperators, int maxGuests);
 	Park(const Park& other);
 	~Park();
 	const Park& operator=(const Park& other);
 
 	//getters
-	const char* getName() const;
+	const string getName() const;
 	const Facility*const* getFacilities() const;
 	const Operator*const* getOperators() const;
 	//const Guest*const* Park::getGuests() const
 	const MyLinkedList<Guest*>const getGuests() const;
 
 	//setters
-	void setName(const char* name);
+	void setName(const string name);
 
 	//actions
 	// person buy ticket from park, the park create this person as a guest,
-	Guest& buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, char date[], bool isVip=false, VIPTicket::VIPType vipKind=VIPTicket::FREE_FOOD); 
+	Guest& buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, string date, bool isVip=false, VIPTicket::VIPType vipKind=VIPTicket::FREE_FOOD); 
 
 	const Park& operator+=(Facility& facility); //add facility to park
 	const Park& operator-=(const Facility& facility);// remove facility from park
@@ -47,7 +47,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Park& p);
 
 private:
-	char* name;
+	string name;
 
 	Facility** facilities; 
 	int numOfFacilities;

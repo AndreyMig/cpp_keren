@@ -48,7 +48,7 @@ protected:
 	Operator* mainOperator;
 
 private:
-	const Guest* findGuest(const char* guestName) const;
+	const Guest* findGuest(const string guestName) const;
 };
 
 #endif

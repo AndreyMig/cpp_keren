@@ -4,8 +4,8 @@
 const double Park::TICKET_PRICE = 150.0;
 const double Park::VIP_TICKET_PRICE = 250.0;
 
-Park::Park(const char* name, int maxFacilities, int maxOperators, int maxGuests)
-	: name(NULL), maxFacilities(maxFacilities), maxOperators(maxOperators), maxGuests(maxGuests)
+Park::Park(const string name, int maxFacilities, int maxOperators, int maxGuests)
+	: name(""), maxFacilities(maxFacilities), maxOperators(maxOperators), maxGuests(maxGuests)
 {
 	setName(name);
 	this->facilities = new Facility*[maxFacilities];
@@ -30,14 +30,14 @@ Park::~Park(){
 }
 
 //setters
-void Park::setName(const char* name)
+void Park::setName(const string name)
 {
-	delete[] this->name;
-	this->name = strdup(name);
+	//delete[] this->name;
+	this->name = name;
 }
 
 //getters
-const char* Park::getName() const
+const string Park::getName() const
 {
 	return name;
 }
@@ -76,7 +76,7 @@ const Park& Park::operator=(const Park& other)
 	return *this;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, char date[], bool isVip, VIPTicket::VIPType vipKind) throw (const char*)
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, string date, bool isVip, VIPTicket::VIPType vipKind) throw (const string)
 {
 
 	//Check that the max number of guests is not exceeded
@@ -127,7 +127,7 @@ void closeGaps(int start, void** arr ,int& originalSize)
 //}
 
 /*Add guest to park*/
-const Park& Park::operator+=(Guest& guest) throw (const char*)
+const Park& Park::operator+=(Guest& guest) throw (const string)
 {
 	if (this->numOfGuests >= this->maxGuests)
 		throw "Reached guests capacity.";
@@ -148,7 +148,7 @@ const Park& Park::operator-=(const Guest& guest)
 	return *this;
 }
 //add facility to park
-const Park& Park::operator+=(Facility& facility) throw (const char*)
+const Park& Park::operator+=(Facility& facility) throw (const string)
 {
 	if (this->numOfFacilities >= this->maxFacilities)
 		throw "Reached guests capacity.";
@@ -168,7 +168,7 @@ const Park& Park::operator-=(const Facility& facility)
 }
 
 //add operator to park
-const Park& Park::operator+=(Operator& _operator) throw (const char*)
+const Park& Park::operator+=(Operator& _operator) throw (const string)
 {
 	if (this->numOfOperators >= this->maxOperators)
 		throw "Reached operators capacity.";
@@ -188,7 +188,7 @@ const Park& Park::operator-=(const Operator& _operator)
 }
 
 
-const Operator& Park::operator[] (int id) const throw(const char*)
+const Operator& Park::operator[] (int id) const throw(const string)
 {
 	const Operator* g = NULL;
 

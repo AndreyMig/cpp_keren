@@ -2,28 +2,29 @@
 #define __TICKET_H
 
 #include <ostream>
+#include <string>
 using namespace std;
 
 class Ticket
 {
 public:
-	Ticket(const char* date, double price);
+	Ticket(const string date, double price);
 	virtual ~Ticket();
 
 	//getters
 	double getPrice() const;
-	const char* getDate() const;
+	const string getDate() const;
 
 	//setters
 	void setPrice(double price);
-	void setDate(const char* date);
+	void setDate(const string date);
 
 	//print
 	friend ostream& operator<<(ostream& os, const Ticket& t);
 
 private:
 	double price;
-	char date[11]; //  (dd/mm/yyyy) + '/0' [e.g -  "24/08/2015"]
+	string date; //  (dd/mm/yyyy) + '/0' [e.g -  "24/08/2015"]
 };
 
 #endif // !__TICKET_H

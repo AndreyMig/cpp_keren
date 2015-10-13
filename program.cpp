@@ -72,7 +72,7 @@ int main(int argc, const char* argv[])
 		waterRollerCoaster.start();
 		cout << disneyWorld << endl;
 	}
-	catch(const char* msg)
+	catch (const string msg)
 	{
 		cout << "Problem occured..." << endl;
 		cout << msg << endl;
