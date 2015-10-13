@@ -8,7 +8,7 @@ int main(int argc, const char* argv[])
 	try
 	{
 		//init park
-		Park disneyWorld("Disney World",10,15,100);
+		Park disneyWorld("Disney World");
 		//init operators
 		Operator o1(Person("Keren", 19, 1.85));
 		Operator o2(Person("Daniel", 21, 1.75));
@@ -21,15 +21,19 @@ int main(int argc, const char* argv[])
 		disneyWorld += o4;
 		
 		//init facilities
-		bool ageTypes[] = {true, true, false};
-		WaterSlide waterSlide(Facility("KAMIKAZA", 2 , ageTypes, &o1), 800);
+		vector<bool> ageTypes;
+		ageTypes.push_back(true);
+		ageTypes.push_back(true);
+		ageTypes.push_back(false);
+
+		WaterSlide waterSlide(Facility("KAMIKAZA" , ageTypes, &o1), 800);
 		
 		ageTypes[2] = true;
-		RollerCoaster rollerCoasterA(Facility("BALERINE", 30, ageTypes, &o2), 4, 0);
+		RollerCoaster rollerCoasterA(Facility("BALERINE", ageTypes, &o2), 4, 0);
 		ageTypes[0] = false;
-		RollerCoaster rollerCoasterB(Facility("ANACONDA", 16, ageTypes, &o3), 30, 2);
+		RollerCoaster rollerCoasterB(Facility("ANACONDA", ageTypes, &o3), 30, 2);
 		ageTypes[2] = false;
-		Facility f("HYDRA", 12, ageTypes, &o4);
+		Facility f("HYDRA", ageTypes, &o4);
 		WaterRollerCoaster waterRollerCoaster(WaterSlide(f,1000), RollerCoaster(f, 40, 7));
 
 		disneyWorld += waterSlide;
@@ -56,12 +60,12 @@ int main(int argc, const char* argv[])
 		waterSlide += g3;
 		waterSlide += g4;
 		waterSlide.start();
-
+		 
 		rollerCoasterA += g1;
 		rollerCoasterA += g2;
 		rollerCoasterA += g3;
 		rollerCoasterA += g4;
-
+		   
 		waterRollerCoaster += g1;
 		waterRollerCoaster += g2;
 		waterRollerCoaster += g3;
@@ -78,4 +82,18 @@ int main(int argc, const char* argv[])
 		cout << msg << endl;
 		cout << "Finishing.." << endl;
 	}
+
+
+	vector<bool> yyy(3,true);
+	Facility f("AAAA", yyy, new Operator(Person("aaa",1,1.1)), true);
+	Facility f1("AAAA", yyy, new Operator(Person("aaa",1,1.1)));
+
+	Guest g(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY, Ticket("1/1/11",12.5));
+	Guest g1(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY, Ticket("1/1/11",12.5));
+
+	Park p("Park");
+
+	Guest& gref = p.buyTicket(Person("aaa",1,1.1),Guest::CHILD, Guest:: HAPPY,"1/1/11", true);
+
+
 }

@@ -1,90 +1,42 @@
 #pragma warning(disable: 4996 4290)
 #include "park.h"
+#include <algorithm>
 
 const double Park::TICKET_PRICE = 150.0;
 const double Park::VIP_TICKET_PRICE = 250.0;
 
-Park::Park(const string name, int maxFacilities, int maxOperators, int maxGuests)
-	: name(""), maxFacilities(maxFacilities), maxOperators(maxOperators), maxGuests(maxGuests)
-{
-	setName(name);
-	this->facilities = new Facility*[maxFacilities];
-	this->operators = new Operator*[maxOperators];
-	this->guests = new MyLinkedList<Guest*>;
-
-	numOfOperators = 0;
-	numOfFacilities = 0;
-	numOfGuests = 0;
-}
-
-Park::Park(const Park& other) : name(NULL)
-{
-	*this = other;
-}
-
-Park::~Park(){
-	delete[] facilities;
-	delete[] operators;
-	//delete[] guests;
-	delete guests;
-}
+Park::Park(const string& name) : name(name)
+{}
 
 //setters
-void Park::setName(const string name)
+void Park::setName(const string& name)
 {
-	//delete[] this->name;
 	this->name = name;
 }
 
 //getters
-const string Park::getName() const
+const string& Park::getName() const
 {
 	return name;
 }
 
-//TODO I removed all const returning get functions 
-const Facility*const* Park::getFacilities() const
+const vector<Facility*> Park::getFacilities() const
 {
 	return this->facilities;
 }
 
-const Operator*const* Park::getOperators() const
+const vector<Operator*> Park::getOperators() const
 {
 	return this->operators;
 }
 
-const MyLinkedList<Guest*>const Park::getGuests() const{
-	return *this->guests;
+const MyLinkedList<Guest*> Park::getGuests() const
+{
+	return this->guests;
 }
 
-//const Guest*const* Park::getGuests() const
-//{
-//	return this->guests;
-//}
-
-//operators
-const Park& Park::operator=(const Park& other)
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, const string& date, bool isVip, VIPTicket::VIPType vipKind) throw (const string)
 {
-	if (this != &other)
-	{
-		setName(other.name);
-		this->maxFacilities = other.maxFacilities;
-		this->maxOperators = other.maxOperators;
-		this->maxGuests = other.maxGuests;
-	}
-
-	return *this;
-}
-
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, string date, bool isVip, VIPTicket::VIPType vipKind) throw (const string)
-{
-
-	//Check that the max number of guests is not exceeded
-	if (this->numOfGuests >= this->maxGuests)
-	{
-		throw "Reached guests capacity.";
-	}
-
 	Ticket *t;
 
 	if(isVip)
@@ -94,109 +46,80 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 
 	Guest *newGuest = new Guest(person, type, feel, *t);
 
-	*this += *newGuest;
+	*this += newGuest;
 
 	return *newGuest;
 }
 
-int findPointerInArray(const void* lookFor, void** lookIn, int size)
-{
-	for(int i = 0; i < size; i++)
-	{
-		if(lookIn[i] == lookFor)
-			return i;
-	}
-	return -1;
-}
-
-void closeGaps(int start, void** arr ,int& originalSize)
-{
-	for(int i = start+1; i < originalSize; i++)
-		arr[i-1] = arr[i];
-	originalSize--;
-}
-
-///*Add guest to park*/
-//const Park& Park::operator+=(Guest& guest) throw (const char*)
-//{
-//	if (this->numOfGuests >= this->maxGuests)
-//		throw "Reached guests capacity.";
-//
-//	this->guests[this->numOfGuests++] = &guest;
-//	return *this;
-//}
-
 /*Add guest to park*/
-const Park& Park::operator+=(Guest& guest) throw (const string)
+const Park& Park::operator+=(Guest* guest)
 {
-	if (this->numOfGuests >= this->maxGuests)
-		throw "Reached guests capacity.";
-
-	this->guests->addLast(&guest);
-	this->numOfGuests++;
+	this->guests.addLast(guest);
 	return *this;
 }
 
 /*Remove guest from park*/
-const Park& Park::operator-=(const Guest& guest)
+/* guest is not const because T type in template class is a pointer and 
+const obj* make the obj itself const and therefore can't comply with the template class because 
+const T& of isContained is equivalent to Guest* const&(const on pointer) and they are not compatiable*/
+const Park& Park::operator-=(Guest* guest) throw (const string)
 {
-	//TODO delete op
-	//this->guests->deleteElement(guest);
+	if(!guests.isContained(guest))
+		throw "Guest not found.";
 
-	
-
+	guests.deleteElement(guest);
 	return *this;
 }
-//add facility to park
-const Park& Park::operator+=(Facility& facility) throw (const string)
-{
-	if (this->numOfFacilities >= this->maxFacilities)
-		throw "Reached guests capacity.";
 
-	this->facilities[this->numOfFacilities++] = &facility;
+//add facility to park
+const Park& Park::operator+=(Facility& facility)
+{
+	facilities.push_back(&facility);
 	return *this;
 }
 // remove facility from park
 const Park& Park::operator-=(const Facility& facility)
 {
-	int ix = findPointerInArray(&facility, (void**)facilities, numOfFacilities);
-	if(ix == -1)
+	vector<Facility*>::iterator found = find(facilities.begin(), facilities.end() ,&facility);
+
+	if(found == facilities.end())
 		throw "Facility not found";
 
-	closeGaps(ix, (void**)facilities, numOfFacilities);
+	facilities.erase(found);
+
 	return *this;
 }
 
 //add operator to park
 const Park& Park::operator+=(Operator& _operator) throw (const string)
 {
-	if (this->numOfOperators >= this->maxOperators)
-		throw "Reached operators capacity.";
-
-	this->operators[this->numOfOperators++] = &_operator;
+	operators.push_back(&_operator);
 	return *this;
 }
 // remove operator from park
 const Park& Park::operator-=(const Operator& _operator)
 {
-	int ix = findPointerInArray(&_operator, (void**)operators, numOfOperators);
-	if(ix == -1)
+	vector<Operator*>::iterator found = find(operators.begin(), operators.end() ,&_operator);
+
+	if(found == operators.end())
 		throw "Operator not found";
 
-	closeGaps(ix, (void**)operators, numOfOperators);
+	operators.erase(found);
+
 	return *this;
 }
-
 
 const Operator& Park::operator[] (int id) const throw(const string)
 {
 	const Operator* g = NULL;
 
-	for(int i = 0; i < numOfOperators; i++)
+	vector<Operator*>::const_iterator  itr    = operators.begin();
+	vector<Operator*>::const_iterator  itrEnd = operators.end();
+	for (; itr!= itrEnd; ++itr)
 	{
-		if(operators[i]->getID() == id)
+		if((*itr)->getID() == id)
 		{
-			g = operators[i];
+			g = *itr;
 			break;
 		}
 	}
@@ -211,13 +134,16 @@ const Operator& Park::operator[] (int id) const throw(const string)
 ostream& operator<<(ostream& os, const Park& p)
 {
 	os << ">>>>>>>> Welcome to the Park : " << p.name << " <<<<<<<<" << endl;
-	if(p.numOfFacilities > 0)
+	if(p.facilities.size() > 0)
 	{
 		os << "* Facilities *" << endl;
-		for(int i = 0; i < p.numOfFacilities; i++)
+
+		vector<Facility*>::const_iterator  itr    = p.facilities.begin();
+		vector<Facility*>::const_iterator  itrEnd = p.facilities.end();
+		for (; itr!= itrEnd; ++itr)
 		{
 			os << "--------------------" << endl;
-			os << *p.facilities[i] << endl;
+			os << *(*itr) << endl;
 			os << "--------------------" << endl;
 		}
 	}

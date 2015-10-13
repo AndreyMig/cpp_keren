@@ -13,13 +13,15 @@ public:
 	MyLinkedList() : head(NULL), tail(NULL) {}
 	~MyLinkedList();
 
+	bool isContained(const T& t) const;
+
 	Node<T>* addLast(const T& t);
 	Node<T>* addLast(Node<T>* n);
 
 	void deleteElement(const T& t);
-	void deleteElement(Node<T>* n);
+	void deleteElement(const Node<T>* n);
 
-	void print(ostream& o);
+	void print(ostream& o) const;
 };
 
 template <class T>
@@ -32,12 +34,26 @@ MyLinkedList<T>::~MyLinkedList()
 }
 
 template <class T>
+bool MyLinkedList<T>::isContained(const T& t) const
+{
+	Node<T>* cur = head;
+
+	while (cur != NULL)
+	{
+		if (cur->value == t)
+			return true;
+		cur = cur->next;
+	}
+
+	return false;
+}
+
+template <class T>
 Node<T>* MyLinkedList<T>::addLast(const T& t)
 {
 	Node<T>* n = new Node<T>(t);
 	return addLast(n);
 }
-
 
 
 template <class T>
@@ -68,11 +84,10 @@ void MyLinkedList<T>::deleteElement(const T& t)
 		}
 		cur = cur->next;
 	}
-
 }
 
 template <class T>
-void MyLinkedList<T>::deleteElement(Node<T>* n)
+void MyLinkedList<T>::deleteElement(const Node<T>* n)
 {
 	Node<T>* nPrev = n->prev;
 	Node<T>* nNext = n->next;
@@ -91,7 +106,7 @@ void MyLinkedList<T>::deleteElement(Node<T>* n)
 }
 
 template <class T>
-void MyLinkedList<T>::print(ostream& o)
+void MyLinkedList<T>::print(ostream& o) const
 {
 	Node<T>* cur = head;
 	if (cur == NULL)

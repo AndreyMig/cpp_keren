@@ -10,11 +10,11 @@ using namespace std;
 class Person
 {
 public:
-	Person(const string name, int age, double height);
+	Person(const string& name, int age, double height);
 	virtual ~Person();
 
 	//getters
-	const string getName() const;
+	const string& getName() const;
 	int getAge() const;
 	double getHeight() const;
 

@@ -30,11 +30,6 @@ void Ticket::setPrice(double price)
 
 void Ticket::setDate(const string date) throw(const string)
 {
-	//check if date is in valid len
-	unsigned int sizeOfDate = sizeof(this->date)/sizeof(this->date[0]);
-	if(this->date.length() >= sizeOfDate)
-		throw "Date is too long - do not exceed the format dd/mm/yyyy";
-
 	this->date = date;
 }
 

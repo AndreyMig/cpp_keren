@@ -3,7 +3,6 @@
 
 #include <ostream>
 #include "person.h"
-#include "ticket.h"
 using namespace std;
  
 class Operator : public Person
