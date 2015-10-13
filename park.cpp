@@ -41,7 +41,6 @@ const char* Park::getName() const
 	return name;
 }
 
-//TODO I removed all const returning get functions 
 const Facility*const* Park::getFacilities() const
 {
 	return this->facilities;
@@ -94,7 +93,7 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 
 	return *newGuest;
 }
-
+ 
 int findPointerInArray(const void* lookFor, void** lookIn, int size)
 {
 	for(int i = 0; i < size; i++)
@@ -111,7 +110,7 @@ void closeGaps(int start, void** arr ,int& originalSize)
 		arr[i-1] = arr[i];
 	originalSize--;
 }
-
+ 
 /*Add guest to park*/
 const Park& Park::operator+=(Guest& guest) throw (const char*)
 {
