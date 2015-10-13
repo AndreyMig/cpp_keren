@@ -10,7 +10,7 @@ Park::Park(const char* name, int maxFacilities, int maxOperators, int maxGuests)
 	setName(name);
 	this->facilities = new Facility*[maxFacilities];
 	this->operators = new Operator*[maxOperators];
-	this->guests = new Guest*[maxGuests];
+	this->guests = new MyLinkedList<Guest*>;
 
 	numOfOperators = 0;
 	numOfFacilities = 0;
@@ -25,7 +25,8 @@ Park::Park(const Park& other) : name(NULL)
 Park::~Park(){
 	delete[] facilities;
 	delete[] operators;
-	delete[] guests;
+	//delete[] guests;
+	delete guests;
 }
 
 //setters
@@ -52,11 +53,14 @@ const Operator*const* Park::getOperators() const
 	return this->operators;
 }
 
-
-const Guest*const* Park::getGuests() const
-{
-	return this->guests;
+const MyLinkedList<Guest*>const Park::getGuests() const{
+	return *this->guests;
 }
+
+//const Guest*const* Park::getGuests() const
+//{
+//	return this->guests;
+//}
 
 //operators
 const Park& Park::operator=(const Park& other)
@@ -112,24 +116,34 @@ void closeGaps(int start, void** arr ,int& originalSize)
 	originalSize--;
 }
 
+///*Add guest to park*/
+//const Park& Park::operator+=(Guest& guest) throw (const char*)
+//{
+//	if (this->numOfGuests >= this->maxGuests)
+//		throw "Reached guests capacity.";
+//
+//	this->guests[this->numOfGuests++] = &guest;
+//	return *this;
+//}
+
 /*Add guest to park*/
 const Park& Park::operator+=(Guest& guest) throw (const char*)
 {
 	if (this->numOfGuests >= this->maxGuests)
 		throw "Reached guests capacity.";
 
-	this->guests[this->numOfGuests++] = &guest;
+	this->guests->addLast(&guest);
+	this->numOfGuests++;
 	return *this;
 }
 
 /*Remove guest from park*/
 const Park& Park::operator-=(const Guest& guest)
 {
-	int ix = findPointerInArray(&guest, (void**)guests, numOfGuests);
-	if(ix == -1)
-		throw "Guest not found";
+	//TODO delete op
+	//this->guests->deleteElement(guest);
 
-	closeGaps(ix, (void**)guests, numOfGuests);
+	
 
 	return *this;
 }

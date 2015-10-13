@@ -38,6 +38,8 @@ Node<T>* MyLinkedList<T>::addLast(const T& t)
 	return addLast(n);
 }
 
+
+
 template <class T>
 Node<T>* MyLinkedList<T>::addLast(Node<T>* n)
 {

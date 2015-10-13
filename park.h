@@ -6,6 +6,7 @@
 #include "operator.h"
 #include "guest.h"
 #include "vipTicket.h"
+#include "MyLinkedList.h"
 
 using namespace std;
 
@@ -24,7 +25,8 @@ public:
 	const char* getName() const;
 	const Facility*const* getFacilities() const;
 	const Operator*const* getOperators() const;
-	const Guest*const* getGuests() const;
+	//const Guest*const* Park::getGuests() const
+	const MyLinkedList<Guest*>const getGuests() const;
 
 	//setters
 	void setName(const char* name);
@@ -55,7 +57,8 @@ private:
 	int numOfOperators;
 	int maxOperators;
 
-	Guest** guests;
+	MyLinkedList<Guest*> *guests;
+	//Guest** guests;
 	int numOfGuests;
 	int maxGuests;
 };

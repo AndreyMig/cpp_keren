@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="facility.h" />
     <ClInclude Include="guest.h" />
+    <ClInclude Include="MyLinkedList.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="operator.h" />
     <ClInclude Include="park.h" />
     <ClInclude Include="person.h" />
@@ -44,7 +46,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
