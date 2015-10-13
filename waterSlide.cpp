@@ -13,6 +13,16 @@ WaterSlide::~WaterSlide()
 {
 }
 
+const WaterSlide& WaterSlide::operator=(const WaterSlide& other)
+{
+	if(this != &other)
+	{
+		Facility::operator=(other);
+		this->literOfWater = other.literOfWater;
+	}
+	return *this;
+}
+
 int WaterSlide::getLiterOfWater() const
 {
 	return literOfWater;

@@ -19,7 +19,18 @@ Facility::Facility(const Facility& other)
 Facility::~Facility()
 {}
 
-
+const Facility& Facility::operator=(const Facility& other)
+{
+	if(this != &other)
+	{
+		this->name = other.name;
+		this->ageTypeAvailable = other.ageTypeAvailable;
+		this->needVIPTicket = other.needVIPTicket;
+		this->guests = other.guests;
+		this->mainOperator = other.mainOperator;
+	}
+	return *this;
+}
 
 //getters
 bool Facility::doesNeedVIPTicket() const

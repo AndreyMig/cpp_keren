@@ -14,6 +14,17 @@ RollerCoaster::~RollerCoaster()
 {
 }
 
+const RollerCoaster& RollerCoaster::operator=(const RollerCoaster& other)
+{
+	if(this != &other)
+	{
+		Facility::operator=(other);
+		this->height = other.height;
+		this->numOfLoops = other.numOfLoops;
+	}
+	return *this;
+}
+
 //getters
 int RollerCoaster::getHeight() const
 {

@@ -1,4 +1,4 @@
-#ifndef __GUEST_H
+ #ifndef __GUEST_H
 #define __GUEST_H
 
 #include <ostream>
