@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="facility.h" />
     <ClInclude Include="guest.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="MyLinkedList.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="operator.h" />

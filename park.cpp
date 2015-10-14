@@ -54,6 +54,9 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 /*Add guest to park*/
 const Park& Park::operator+=(Guest* guest)
 {
+	IObserver *op;
+	op = guest;
+	this->registerObserver(op);
 	this->guests.addLast(guest);
 	return *this;
 }
@@ -129,6 +132,30 @@ const Operator& Park::operator[] (int id) const throw(const string)
 
 	throw "Operator not found..";
 }
+//observer pattern
+void Park::registerObserver(IObserver* obs)
+{
+	cout << "Registerd " << obs->getName().c_str() << " to get notifications from '" << name.c_str() << "'\n";
+	this->viewers.push_back(*obs);
+}
+
+
+
+
+void Park::notifyAllRegistered(int precenatge) const
+{
+	vector<IObserver>::const_iterator  itr = viewers.begin();
+	vector<IObserver>::const_iterator  itrEnd = viewers.end();
+	for (; itr != itrEnd; ++itr)
+	{
+		
+		(itr)->notify(name, precenatge);
+
+	}
+
+}
+
+
 
 //print
 ostream& operator<<(ostream& os, const Park& p)

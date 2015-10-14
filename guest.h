@@ -6,9 +6,10 @@
 #include <string>
 #include "person.h"
 #include "ticket.h"
+#include "IObserver.h"
 using namespace std;
  
-class Guest : public Person
+class Guest : public Person, public IObserver
 {
 public:
 	static const int AgeTypeSize = 3;
@@ -27,7 +28,8 @@ public:
 	};
 
 	Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket);
-
+	virtual void Guest::notify(const string& name, int precentage) const;
+	virtual IObserver* clone() const { return new Guest(*this); }
 	//getters
 	const Ticket* getTicket() const;
 	AgeType getType() const;

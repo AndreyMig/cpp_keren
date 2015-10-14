@@ -9,7 +9,7 @@
 #include "MyLinkedList.h"
 #include <string>
 #include <vector>
-
+#include "IObserver.h"
 using namespace std;
 
 class Park
@@ -25,6 +25,8 @@ public:
 	const vector<Facility*> getFacilities() const;
 	const vector<Operator*> getOperators() const;
 	const MyLinkedList<Guest*> getGuests() const; // TOODO maybe const?
+	void registerObserver(IObserver* obs);
+	void notifyAllRegistered(int precenatge) const;
 
 	//setters
 	void setName(const string& name);
@@ -41,6 +43,13 @@ public:
 	const Park& operator-=(Guest* guest);				    // Keren: missing const explained in cpp file
 	const Operator& operator[] (int id) const;
 
+	void Park::test(Person* p)
+	{
+		
+	}
+
+
+
 	//print
 	friend ostream& operator<<(ostream& os, const Park& p);
 
@@ -49,6 +58,7 @@ private:
 
 	vector<Facility*> facilities;
 	vector<Operator*> operators;
+	vector<IObserver> viewers;
 	MyLinkedList<Guest*> guests;
 
 
