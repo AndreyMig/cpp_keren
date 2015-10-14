@@ -19,7 +19,7 @@ public:
 	double getHeight() const;
 
 	//setters
-	void setName(const string name);
+	void setName(const string& name);
 	void setAge(int age);
 	void setHeight(double height);
 

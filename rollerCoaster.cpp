@@ -1,3 +1,4 @@
+#pragma warning(disable: 4290)
 #include "rollerCoaster.h"
 
 RollerCoaster::RollerCoaster(const Facility&  facility,int height,int numOfLoops)
@@ -37,13 +38,18 @@ int RollerCoaster::getNumOfLoops() const
 }
 
 //setters
-void RollerCoaster::setHeight(int height)
+void RollerCoaster::setHeight(int height) throw (const string)
 {
+	if(height < 0)
+		throw "Illegal height.";
+
 	this->height = height;
 }
 
-void RollerCoaster::setNumOfLoops(int numOfLoops)
+void RollerCoaster::setNumOfLoops(int numOfLoops) throw (const string)
 {
+	if(numOfLoops < 0)
+		throw "Num of loops must be greater than 0.";
 	this->numOfLoops = numOfLoops;
 }
  

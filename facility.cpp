@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996 4290)
+#pragma warning(disable: 4290)
 
 #include "facility.h"
 #include "vipTicket.h"
@@ -38,7 +38,7 @@ bool Facility::doesNeedVIPTicket() const
 	return needVIPTicket;
 }
 
-const string& Facility::getFacilityName() const
+const string& Facility::getName() const
 {
 	return name;
 }
@@ -53,6 +53,10 @@ const vector<const Guest*> Facility::getGuests() const
 	return guests;
 }
 
+const Operator& Facility::getOperator() const
+{
+	return *mainOperator;
+}
 
 //setters
 void Facility::setNeedVIPTicket(bool needVIPTicket)
@@ -60,7 +64,7 @@ void Facility::setNeedVIPTicket(bool needVIPTicket)
 	this->needVIPTicket = needVIPTicket;
 }
 
-void Facility::setFacilityName(const string& name)
+void Facility::setName(const string& name)
 {
 	this->name = name;
 }
@@ -74,10 +78,17 @@ void Facility::setAgeTypeByIndex(int index, bool allowed) throw (const string)
 	ageTypeAvailable[ix] = allowed;
 }
 
+void Facility::setOperator(Operator& mainOperator)
+{
+	this->mainOperator = &mainOperator;
+}
 
 //start the facility (start each passenger "have fun" action, and remove guests!!!!) 
-void Facility::start(ostream& o)
+void Facility::start(ostream& o) throw (const char*)
 {
+	if(mainOperator == NULL)
+		throw "No Operator yet, can't activate facility.";
+
 	o << "** " << name << " started **" << endl;
 
 	vector<const Guest*>::iterator  itr    = guests.begin();

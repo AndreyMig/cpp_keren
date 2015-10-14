@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996 4290)
+#pragma warning(disable: 4290)
 #include "person.h"
 
 Person::Person(const string& name, int age, double height) : name(name), age(age), height(height)
@@ -41,7 +41,7 @@ double Person::getHeight() const
 }
 
 //setters
-void Person::setName(const string name)
+void Person::setName(const string& name)
 {
 	this->name = name;
 }

@@ -8,16 +8,16 @@ using namespace std;
 class Ticket
 {
 public:
-	Ticket(const string date, double price);
+	Ticket(const string& date, double price);
 	virtual ~Ticket();
 
 	//getters
 	double getPrice() const;
-	const string getDate() const;
+	const string& getDate() const;
 
 	//setters
 	void setPrice(double price);
-	void setDate(const string date);
+	void setDate(const string& date);
 
 	//print
 	friend ostream& operator<<(ostream& os, const Ticket& t);

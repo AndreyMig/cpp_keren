@@ -80,8 +80,4 @@ int main(int argc, const char* argv[])
 		cout << msg << endl;
 		cout << "Finishing.." << endl;
 	}
-	Operator o1(Person("Keren", 19, 1.85));
-	vector<bool> ageTypes(3,true);
-	WaterSlide waterSlide(Facility("KAMIKAZA" , ageTypes, &o1), 800);
-
 }

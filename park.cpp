@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996 4290)
+#pragma warning(disable: 4290)
 #include "park.h"
 #include <algorithm>
 
@@ -35,7 +35,7 @@ const MyLinkedList<Guest*> Park::getGuests() const
 	return this->guests;
 }
 
-Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, const string& date, bool isVip, VIPTicket::VIPType vipKind) throw (const string)
+Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, const string& date, bool isVip, VIPTicket::VIPType vipKind)
 {
 	Ticket *t;
 
@@ -78,7 +78,7 @@ const Park& Park::operator+=(Facility& facility)
 	return *this;
 }
 // remove facility from park
-const Park& Park::operator-=(const Facility& facility)
+const Park& Park::operator-=(const Facility& facility) throw (const string)
 {
 	vector<Facility*>::iterator found = find(facilities.begin(), facilities.end() ,&facility);
 
@@ -91,13 +91,13 @@ const Park& Park::operator-=(const Facility& facility)
 }
 
 //add operator to park
-const Park& Park::operator+=(Operator& _operator) throw (const string)
+const Park& Park::operator+=(Operator& _operator)
 {
 	operators.push_back(&_operator);
 	return *this;
 }
 // remove operator from park
-const Park& Park::operator-=(const Operator& _operator)
+const Park& Park::operator-=(const Operator& _operator) throw (const string)
 {
 	vector<Operator*>::iterator found = find(operators.begin(), operators.end() ,&_operator);
 

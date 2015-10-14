@@ -17,14 +17,16 @@ public:
 
 	//getters
 	bool doesNeedVIPTicket() const;
-	const string& getFacilityName() const;
+	const string& getName() const;
 	const vector<bool> getAgeTypeAvailable() const;
 	const vector<const Guest*> getGuests() const;
+	const Operator& getOperator() const;
 
 	//setters
 	void setNeedVIPTicket(bool needVIPTicket);
-	void Facility::setFacilityName(const string& name);
+	void Facility::setName(const string& name);
 	void setAgeTypeByIndex(int index, bool allowed);
+	void setOperator(Operator& mainOperator); // maybe const
 
 	//actions
 	void start(ostream& o=cout);									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 

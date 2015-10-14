@@ -1,10 +1,8 @@
-#pragma warning(disable: 4996 4290)
 #include "ticket.h"
 #include <string.h>
 
-Ticket::Ticket(const string date, double price) throw(const string) : price(price)
+Ticket::Ticket(const string& date, double price) : price(price), date(date)
 {
-	setDate(date);
 }
 
 Ticket::~Ticket()
@@ -17,7 +15,7 @@ double Ticket::getPrice() const
 	return price;
 }
 
-const string Ticket::getDate() const
+const string& Ticket::getDate() const
 {
 	return date;
 }
@@ -28,7 +26,7 @@ void Ticket::setPrice(double price)
 	this->price = price;
 }
 
-void Ticket::setDate(const string date) throw(const string)
+void Ticket::setDate(const string& date)
 {
 	this->date = date;
 }
