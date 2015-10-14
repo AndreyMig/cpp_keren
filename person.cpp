@@ -17,7 +17,7 @@ const Person& Person::operator=(const Person& other)
 {
 	if(this != &other)
 	{
-		this->name = name;
+		this->name = other.name;
 		this->age = other.age;
 		this->height = other.height;
 	}
