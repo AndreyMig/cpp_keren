@@ -1,16 +1,15 @@
-#include <ostream>
-#include <string>
+#ifndef __IOBSERVER_H
+#define __IOBSERVER_H
 
-using namespace std;
+#include <string>
 
 class IObserver
 {
+	string observerName;
 public:	
-	IObserver(const string& name) : name(name) {}
-	/*IObserver(const string& name1) : name1(name1) {}*/
-	virtual void notify(const string& name, int precentage) const = 0;
-	virtual IObserver* clone() const = 0;
-	const string& getName() const { return name; }
-	
-
+	IObserver(const string& observerName) : observerName(observerName) {}
+	virtual void notify(const string& observerName, int precentage, ostream& os=cout) const =0;
+	const string& getObserverName() const { return observerName; }
 }; 
+
+#endif

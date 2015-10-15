@@ -5,7 +5,6 @@ const string feels[3] = { "Happy", "Afraid", "Thrilled" };
 
 Guest::Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket) : Person(person), IObserver(person.getName()), type(type), feel(feel), ticket(&ticket)
 {
-
 }
 
 //getters
@@ -42,14 +41,10 @@ void Guest::haveFun(ostream& os) const
 	os << Person::name << " : I am " << feels[feel] << endl;
 }
 
-//Observer methods
-void Guest::notify(const string& name, int precentage) const{
-
-	//TODO is it okay that virtual is definde in guest.h but not here?
-
-	cout << "Icecream is now cheaper by "<< precentage <<"% ???? I HAVE TO GET IT NOW!!" << "'\n";
-
-
+//Observer method
+void Guest::notify(const string& observerName, int precentage, ostream& os) const
+{
+	os << observerName << ": Discount in food section??  "<< precentage <<"% ???? I HAVE TO GET THERE NOW!!" << endl;
 }
 
 //print

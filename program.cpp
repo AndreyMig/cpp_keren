@@ -77,6 +77,9 @@ int main(int argc, const char* argv[])
 		rollerCoasterA.start();
 		waterRollerCoaster.start();
 		cout << disneyWorld << endl;
+
+		cout << "Offer sale: " << endl;
+		disneyWorld.discountOnFoodSection(50);
 	}
 	catch (const string msg)
 	{

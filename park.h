@@ -7,9 +7,10 @@
 #include "guest.h"
 #include "vipTicket.h"
 #include "MyLinkedList.h"
+#include "IObserver.h"
 #include <string>
 #include <vector>
-#include "IObserver.h"
+
 using namespace std;
 
 class Park
@@ -24,9 +25,7 @@ public:
 	const string& getName() const;
 	const vector<Facility*> getFacilities() const;
 	const vector<Operator*> getOperators() const;
-	const MyLinkedList<Guest*> getGuests() const; // TOODO maybe const?
-	void registerObserver(IObserver* obs);
-	void notifyAllRegistered(int precenatge) const;
+	const MyLinkedList<Guest*> getGuests() const; 
 
 	//setters
 	void setName(const string& name);
@@ -43,22 +42,19 @@ public:
 	const Park& operator-=(Guest* guest);				    // Keren: missing const explained in cpp file
 	const Operator& operator[] (int id) const;
 
-	void Park::test(Person* p)
-	{
-		
-	}
-
-
-
 	//print
 	friend ostream& operator<<(ostream& os, const Park& p);
+
+	// Observer
+	void registerObserver(const IObserver* obs);
+	void discountOnFoodSection(int precenatge) const;
 
 private:
 	string name;
 
 	vector<Facility*> facilities;
 	vector<Operator*> operators;
-	vector<IObserver> viewers;
+	vector<const IObserver*> viewers;
 	MyLinkedList<Guest*> guests;
 
 

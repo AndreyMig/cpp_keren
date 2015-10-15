@@ -28,8 +28,7 @@ public:
 	};
 
 	Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket);
-	virtual void Guest::notify(const string& name, int precentage) const;
-	virtual IObserver* clone() const { return new Guest(*this); }
+	
 	//getters
 	const Ticket* getTicket() const;
 	AgeType getType() const;
@@ -44,6 +43,8 @@ public:
 
 	//print
 	friend ostream& operator<<(ostream& os, const Guest& g);
+
+	virtual void notify(const string& observerName, int precentage, ostream& os=cout) const;
 
 private:
 	const Ticket* ticket; // pointer because polymorphism (can be ticket or vip ticket)

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class WaterRollerCoaster : public WaterSlide,public RollerCoaster
+class WaterRollerCoaster : public WaterSlide, public RollerCoaster
 {
 public:
 	WaterRollerCoaster(const WaterSlide& slide,const RollerCoaster& rollerCoaster);
