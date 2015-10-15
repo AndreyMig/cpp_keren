@@ -2,25 +2,17 @@
 
 #include "facility.h"
 #include "vipTicket.h"
-#include <string.h>
+#include "utils.h"
 #include <typeinfo.h>
 
-
-void copyArrays(const bool* src, bool* dst, int size)
-{
-	for(int i = 0; i < size; i++)
-		dst[i] = src[i];
-}
-
 Facility::Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket) : 
-name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), needVIPTicket(needVIPTicket)
+name(NULL), maxNumOfPassangers(maxNumOfPassangers), mainOperator(mainOperator), needVIPTicket(needVIPTicket), numOfPassengers(0)
 {
 	setName(name);
 
-	guests = new const Guest*[this->maxNumOfPassangers];
-	this->numOfPassengers = 0;
+	guests = new Guest*[this->maxNumOfPassangers];
 
-	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
+	copyArrays(ageTypeAvailable,this->ageTypeAvailable,Guest::AGE_TYPE_SIZE);
 } 
 
 Facility::Facility(const Facility& other) : name(NULL)
@@ -42,8 +34,8 @@ const Facility& Facility::operator=(const Facility& other)
 		setMaxNumOfPassengers(other.maxNumOfPassangers);
 		setNeedVIPTicket(other.needVIPTicket);
 
-		guests = new const Guest*[this->maxNumOfPassangers];
-		copyArrays(other.ageTypeAvailable,this->ageTypeAvailable,Guest::AgeTypeSize);
+		this->guests = new Guest*[this->maxNumOfPassangers];
+		copyArrays(other.ageTypeAvailable,this->ageTypeAvailable,Guest::AGE_TYPE_SIZE);
 
 		this->numOfPassengers = other.numOfPassengers;
 		this->mainOperator = other.mainOperator;
@@ -51,7 +43,6 @@ const Facility& Facility::operator=(const Facility& other)
 	}
 	return *this;
 }
-
 
 //getters
 int Facility::getMaxNumOfPassengers() const
@@ -79,29 +70,21 @@ const Guest*const* Facility::getGuests() const
 	return guests;
 }
 
+const Operator& Facility::getOperator() const
+{
+	return *mainOperator;
+}
 
 //setters
 
 //maximum number of guests to get on ride
-void Facility::setMaxNumOfPassengers(int maxNumOfPassangers)
+void Facility::setMaxNumOfPassengers(int maxNumOfPassangers) throw (const char*)
 {
 	//check if there are already more guests then allowed then take some off
 	if(maxNumOfPassangers < this->numOfPassengers) 
-	{
-		//int takeOffRide = this->numOfPassengers - maxNumOfPassangers;
-
-		//for(int i = 0; i < takeOffRide; i++)
-		//{
-		//	guests[this->numOfPassengers-1-i] = NULL;
-		//}
-
-		//this->numOfPassengers -= takeOffRide;
 		throw "Can't limit the capacity of facility because there are more people in the facility.";
-	}
-	else
-	{
-		this->maxNumOfPassangers = maxNumOfPassangers;
-	}
+
+	this->maxNumOfPassangers = maxNumOfPassangers;
 }
 
 void Facility::setNeedVIPTicket(bool needVIPTicket)
@@ -115,16 +98,22 @@ void Facility::setName(const char* name)
 	this->name = strdup(name);
 }
 
-void Facility::setAgeTypeByIndex(int index, bool allowed)
+void Facility::setAgeTypeByIndex(int index, bool allowed) throw (const char*)
 {
-	int ix = index % Guest::AgeTypeSize;
+	int ix = index % Guest::AGE_TYPE_SIZE;
+	if(ix != index)
+		throw "Illegal index.";
+
 	ageTypeAvailable[ix] = allowed;
 }
 
 //actions
 //start the facility (start each passenger "have fun" action, and remove guests!!!!) 
-void Facility::start(ostream& o)
+void Facility::start(ostream& o) throw (const char*)
 {
+	if(mainOperator == NULL)
+		throw "No Operator yet, can't activate facility.";
+
 	o << "** " << name << " started **" << endl;
 	for(int i = 0; i < numOfPassengers; i++)
 	{
@@ -147,9 +136,7 @@ const Facility& Facility::operator+=(Guest& passenger) throw(const char*)
 	{
 		const Ticket* t = passenger.getTicket();
 		if(typeid(*t) != typeid(VIPTicket))
-		{
 			throw "Guest need to have a VIP Ticket.";
-		}
 	}
 
 	guests[this->numOfPassengers++] = &passenger;
@@ -159,33 +146,14 @@ const Facility& Facility::operator+=(Guest& passenger) throw(const char*)
 // remove a passenger to passengers list
 const Facility& Facility::operator-=(const Guest& passenger) throw(const char*)
 {
-	int i;
-	bool found = false;
-
 	//look for the guest
-	for(i = 0; i < numOfPassengers; i++)
-	{
-		if(guests[i] == &passenger)
-		{
-			guests[i] = NULL;
-			found = true;
-			break;
-		}
-	}
+	int guestLocation = findPointerInArray(&passenger, (void**)guests, numOfPassengers);
+
+	if(guestLocation == -1)
+		throw "Guest not found";
 
 	//close gaps 
-	if(found)
-	{
-		for(i++ ; i < numOfPassengers+1; i++)
-		{
-			guests[i-1] = guests[i];
-		}
-		numOfPassengers--;
-	}
-	else
-	{
-		throw "Guest not found";
-	}
+	closeGaps(guestLocation, (void**)guests, numOfPassengers);
 
 	return *this;
 }

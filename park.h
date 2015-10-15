@@ -16,9 +16,7 @@ public:
 	static const double VIP_TICKET_PRICE;
 
 	Park(const char* name, int maxFacilities, int maxOperators, int maxGuests);
-	Park(const Park& other);
 	~Park();
-	const Park& operator=(const Park& other);
 
 	//getters
 	const char* getName() const;
@@ -33,12 +31,12 @@ public:
 	// person buy ticket from park, the park create this person as a guest,
 	Guest& buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, char date[], bool isVip=false, VIPTicket::VIPType vipKind=VIPTicket::FREE_FOOD); 
 
-	const Park& operator+=(Facility& facility); //add facility to park
-	const Park& operator-=(const Facility& facility);// remove facility from park
-	const Park& operator+=(Operator& _operator);//add operator to park
-	const Park& operator-=(const Operator& _operator);// remove operator from park
-	const Park& operator+=(Guest& guest);		// add guest to park
-	const Park& operator-=(const Guest& guest);		//remove guest from park
+	const Park& operator+=(Facility& facility);					//add facility to park
+	const Park& operator-=(const Facility& facility);			// remove facility from park
+	const Park& operator+=(Operator& theOperator);				//add operator to park
+	const Park& operator-=(const Operator& theOperator);		// remove operator from park
+	const Park& operator+=(Guest& guest);						// add guest to park
+	const Park& operator-=(const Guest& guest);					//remove guest from park
 	const Operator& operator[] (int id) const;
 
 	//print
@@ -58,6 +56,9 @@ private:
 	Guest** guests;
 	int numOfGuests;
 	int maxGuests;
+
+	Park(const Park& other);
+	const Park& operator=(const Park& other);
 };
 
 #endif

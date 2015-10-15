@@ -9,11 +9,8 @@ using namespace std;
  
 class Guest : public Person
 {
-private:
-	Guest(const Guest& other);
-	const Guest& operator=(const Guest& other);
 public:
-	static const int AgeTypeSize = 3;
+	static const int AGE_TYPE_SIZE = 3;
 	enum AgeType
 	{
 		CHILD,
@@ -37,6 +34,7 @@ public:
 
 	//setters
 	void setFeel(Feel feel);
+	void setAgeType(AgeType type);
 
 	//actions
 	void haveFun(ostream& os=cout) const; //print the guest feeling
@@ -45,9 +43,12 @@ public:
 	friend ostream& operator<<(ostream& os, const Guest& g);
 
 private:
-	const Ticket* ticket;
-	const AgeType type;
+	const Ticket* ticket; // pointer because polymorphism (can be ticket or vip ticket)
+	AgeType type;
 	Feel feel;
+
+	Guest(const Guest& other);
+	const Guest& operator=(const Guest& other);
 };
 
 #endif

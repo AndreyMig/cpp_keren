@@ -1,8 +1,7 @@
 #pragma warning(disable: 4996 4290)
 #include "ticket.h"
-#include <string.h>
 
-Ticket::Ticket(const char* date, double price) throw(const char*) : price(price) 
+Ticket::Ticket(const char* date, double price) : price(price) 
 {
 	setDate(date);
 }
@@ -41,7 +40,11 @@ void Ticket::setDate(const char* date) throw(const char*)
 //print
 ostream& operator<<(ostream& os, const Ticket& t)
 {
-	os << "Ticket date:"  << t.date << " cost " << t.price;
+	os << "date:"  << t.date << " cost " << t.price << " ";
+	t.toOs(os);
 	return os;
 }
 
+void Ticket::toOs(ostream& os) const
+{
+}

@@ -1,5 +1,6 @@
 #pragma warning(disable: 4996 4290)
 #include "park.h"
+#include "utils.h"
 
 const double Park::TICKET_PRICE = 150.0;
 const double Park::VIP_TICKET_PRICE = 250.0;
@@ -15,11 +16,6 @@ Park::Park(const char* name, int maxFacilities, int maxOperators, int maxGuests)
 	numOfOperators = 0;
 	numOfFacilities = 0;
 	numOfGuests = 0;
-}
-
-Park::Park(const Park& other) : name(NULL)
-{
-	*this = other;
 }
 
 Park::~Park(){
@@ -58,19 +54,6 @@ const Guest*const* Park::getGuests() const
 }
 
 //operators
-const Park& Park::operator=(const Park& other)
-{
-	if (this != &other)
-	{
-		setName(other.name);
-		this->maxFacilities = other.maxFacilities;
-		this->maxOperators = other.maxOperators;
-		this->maxGuests = other.maxGuests;
-	}
-
-	return *this;
-}
-
 Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, char date[], bool isVip, VIPTicket::VIPType vipKind) throw (const char*)
 {
 
@@ -94,23 +77,6 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 	return *newGuest;
 }
  
-int findPointerInArray(const void* lookFor, void** lookIn, int size)
-{
-	for(int i = 0; i < size; i++)
-	{
-		if(lookIn[i] == lookFor)
-			return i;
-	}
-	return -1;
-}
-
-void closeGaps(int start, void** arr ,int& originalSize)
-{
-	for(int i = start+1; i < originalSize; i++)
-		arr[i-1] = arr[i];
-	originalSize--;
-}
- 
 /*Add guest to park*/
 const Park& Park::operator+=(Guest& guest) throw (const char*)
 {
@@ -121,8 +87,8 @@ const Park& Park::operator+=(Guest& guest) throw (const char*)
 	return *this;
 }
 
-/*Remove guest from park*/
-const Park& Park::operator-=(const Guest& guest)
+/*Remove guest from park*/ 
+const Park& Park::operator-=(const Guest& guest) throw (const char*)
 {
 	int ix = findPointerInArray(&guest, (void**)guests, numOfGuests);
 	if(ix == -1)
@@ -142,7 +108,7 @@ const Park& Park::operator+=(Facility& facility) throw (const char*)
 	return *this;
 }
 // remove facility from park
-const Park& Park::operator-=(const Facility& facility)
+const Park& Park::operator-=(const Facility& facility) throw (const char*)
 {
 	int ix = findPointerInArray(&facility, (void**)facilities, numOfFacilities);
 	if(ix == -1)
@@ -153,18 +119,18 @@ const Park& Park::operator-=(const Facility& facility)
 }
 
 //add operator to park
-const Park& Park::operator+=(Operator& _operator) throw (const char*)
+const Park& Park::operator+=(Operator& theOperator) throw (const char*)
 {
 	if (this->numOfOperators >= this->maxOperators)
 		throw "Reached operators capacity.";
 
-	this->operators[this->numOfOperators++] = &_operator;
+	this->operators[this->numOfOperators++] = &theOperator;
 	return *this;
 }
 // remove operator from park
-const Park& Park::operator-=(const Operator& _operator)
+const Park& Park::operator-=(const Operator& theOperator) throw (const char*)
 {
-	int ix = findPointerInArray(&_operator, (void**)operators, numOfOperators);
+	int ix = findPointerInArray(&theOperator, (void**)operators, numOfOperators);
 	if(ix == -1)
 		throw "Operator not found";
 

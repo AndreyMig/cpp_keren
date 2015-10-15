@@ -8,6 +8,7 @@ class WaterSlide : virtual public Facility
 {
 public:
 	WaterSlide(const Facility& facility, int literOfWater);
+	virtual ~WaterSlide();
 
 	int getLiterOfWater() const;
 	void setLiterOfWater(int literOfWater);
@@ -17,6 +18,9 @@ public:
 
 protected:
 	int literOfWater;
+
+	WaterSlide(const WaterSlide& other);
+	const WaterSlide& operator=(const WaterSlide& other);
 };
 
 #endif

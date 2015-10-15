@@ -3,7 +3,7 @@
 
 #include <ostream>
 #include "person.h"
-#include "ticket.h"
+
 using namespace std;
  
 class Operator : public Person
@@ -19,6 +19,9 @@ public:
 private:
 	static int ID_GEN;
 	int id;
+
+	Operator(const Operator& other);
+	const Operator& operator=(const Operator& other);
 };
 
 #endif

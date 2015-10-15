@@ -18,6 +18,7 @@
     <ClInclude Include="person.h" />
     <ClInclude Include="rollerCoaster.h" />
     <ClInclude Include="ticket.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="vipTicket.h" />
     <ClInclude Include="waterRollerCoaster.h" />
     <ClInclude Include="waterSlide.h" />
@@ -31,6 +32,7 @@
     <ClCompile Include="program.cpp" />
     <ClCompile Include="rollerCoaster.cpp" />
     <ClCompile Include="ticket.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="vipTicket.cpp" />
     <ClCompile Include="waterRollerCoaster.cpp" />
     <ClCompile Include="waterSlide.cpp" />

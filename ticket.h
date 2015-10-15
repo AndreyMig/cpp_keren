@@ -20,6 +20,7 @@ public:
 
 	//print
 	friend ostream& operator<<(ostream& os, const Ticket& t);
+	virtual void toOs(ostream& os) const;
 
 private:
 	double price;

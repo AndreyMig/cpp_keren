@@ -10,9 +10,7 @@ class Facility
 {
 public:
 	Facility(const char* name, int maxNumOfPassangers, bool ageTypeAvailable[], Operator* mainOperator, bool needVIPTicket = false);
-	Facility(const Facility& other);
 	virtual ~Facility();
-	const Facility& operator=(const Facility& other);
 
 	//getters
 	int getMaxNumOfPassengers() const;
@@ -20,6 +18,7 @@ public:
 	const char* getName() const;
 	const bool* getAgeTypeAvailable() const;
 	const Guest*const* getGuests() const;
+	const Operator& getOperator() const;
 
 	//setters
 	void setMaxNumOfPassengers(int maxNumOfPassangers); //maximum number of guests to get on ride
@@ -38,15 +37,17 @@ public:
 
 protected:
 	char* name;
-	bool ageTypeAvailable[Guest::AgeTypeSize]; //array of age type available for this facility
+	bool ageTypeAvailable[Guest::AGE_TYPE_SIZE]; //array of age type available for this facility
 	bool needVIPTicket;
-	const Guest** guests; // array of guest on facility (dynamic)
+
+	Guest** guests; // array of guest on facility (dynamic)
 	int maxNumOfPassangers;
 	int numOfPassengers;
-	Operator* mainOperator;
 
-private:
-	const Guest* findGuest(const char* guestName) const;
+	Operator* mainOperator;
+	
+	Facility(const Facility& other);
+	const Facility& operator=(const Facility& other);
 };
 
 #endif

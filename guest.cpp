@@ -29,6 +29,11 @@ void Guest::setFeel(Feel feel)
 	this->feel = feel;
 }
 
+void Guest::setAgeType(AgeType type)
+{
+	this->type = type;
+}
+
 //actions
 //print the guest feeling
 void Guest::haveFun(ostream& os) const
