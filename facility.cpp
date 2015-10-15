@@ -48,7 +48,7 @@ const vector<bool> Facility::getAgeTypeAvailable() const
 	return ageTypeAvailable;
 }
 
-const vector<const Guest*> Facility::getGuests() const
+const MyLinkedList<const Guest*> Facility::getGuests() const
 {
 	return guests;
 }
@@ -91,10 +91,13 @@ void Facility::start(ostream& o) throw (const char*)
 
 	o << "** " << name << " started **" << endl;
 
-	vector<const Guest*>::iterator  itr    = guests.begin();
-	vector<const Guest*>::iterator  itrEnd = guests.end();
-	for (; itr!= itrEnd; ++itr)
-		(*itr)->haveFun(o);
+	Node<const Guest*>* cur = guests.getHead();
+	while(cur != NULL)
+	{
+		const Guest* g = cur->getValue();
+		g->haveFun(o);
+		cur = cur->getNext();
+	}
 
 	o << endl;
 	guests.clear();
@@ -111,21 +114,17 @@ const Facility& Facility::operator+=(Guest& passenger) throw (const string)
 			throw "Guest need to have a VIP Ticket.";
 	}
 
-	guests.push_back(&passenger);
+	guests.addLast(&passenger);
 	return *this;
 }
 
 // remove a passenger to passengers list
 const Facility& Facility::operator-=(const Guest& passenger) throw(const string)
 {
-	vector<const Guest*>::iterator  found;
-
-	found = find(guests.begin(), guests.end(), &passenger);
-
-	if(found == guests.end())
+	if(!guests.isContained(&passenger))
 		throw "Guest not found";
 
-	guests.erase(found);
+	guests.deleteElement(&passenger);
 
 	return *this;
 }
@@ -139,14 +138,16 @@ ostream& operator<<(ostream& os, const Facility& f)
 	if(f.needVIPTicket)
 		os << "[Facility Require VIP Ticket]" << endl;
 
-	if(f.guests.size() > 0)
+	const Node<const Guest*>* cur = f.guests.getHead();
+	if(cur != NULL)
 	{
 		os << "Waiting in line:" << endl;
-
-		vector<const Guest*>::const_iterator  itr    = f.guests.begin();
-		vector<const Guest*>::const_iterator  itrEnd = f.guests.end();
-		for (; itr!= itrEnd; ++itr)
-			os << *(*itr) << endl;
+		while(cur != NULL)
+		{
+			const Guest* g = cur->getValue();
+			os << *g << endl;
+			cur = cur->getNext();
+		}
 	}
 	else
 		os << "Facility has no waiting line." << endl;

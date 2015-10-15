@@ -21,10 +21,11 @@ public:
 
 	//print
 	friend ostream& operator<<(ostream& os, const Ticket& t);
+	virtual void toOs(ostream& os) const;
 
 private:
 	double price;
-	string date; //  (dd/mm/yyyy) + '/0' [e.g -  "24/08/2015"]
+	string date; //  (dd/mm/yyyy) [e.g -  "24/08/2015"]
 };
 
 #endif // !__TICKET_H

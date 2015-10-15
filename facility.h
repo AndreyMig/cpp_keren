@@ -6,6 +6,7 @@
 #include "operator.h"
 #include <string>
 #include <vector>
+#include "MyLinkedList.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ public:
 	bool doesNeedVIPTicket() const;
 	const string& getName() const;
 	const vector<bool> getAgeTypeAvailable() const;
-	const vector<const Guest*> getGuests() const;
+	const MyLinkedList<const Guest*> getGuests() const;
 	const Operator& getOperator() const;
 
 	//setters
@@ -41,7 +42,7 @@ protected:
 	vector<bool> ageTypeAvailable;
 	bool needVIPTicket;
 
-	vector<const Guest*> guests;
+	MyLinkedList<const Guest*> guests;
 	Operator* mainOperator;
 
 	Facility(const Facility& other);

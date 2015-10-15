@@ -3,7 +3,7 @@
 const string ageTypes[3] = { "Child", "Adult", "Elder" };
 const string feels[3] = { "Happy", "Afraid", "Thrilled" };
 
-Guest::Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket) : Person(person), IObserver(person.getName()), type(type), feel(feel), ticket(&ticket)
+Guest::Guest(const Person& person, AgeType type, Feel feel, const Ticket* ticket) : Person(person), IObserver(person.getName()), type(type), feel(feel), ticket(ticket)
 {
 }
 
@@ -51,6 +51,7 @@ void Guest::notify(const string& observerName, int precentage, ostream& os) cons
 ostream& operator<<(ostream& os, const Guest& g)
 {
 	os << (Person&)g << endl;
-	os << "is " << ageTypes[g.type] << " and is " << feels[g.feel];
+	os << "is " << ageTypes[g.type] << " and is " << feels[g.feel] << endl;
+	os << "Ticket: " << *g.ticket << endl;;
 	return os;
 }

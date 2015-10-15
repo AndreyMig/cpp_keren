@@ -27,7 +27,7 @@ public:
 		THRILLED
 	};
 
-	Guest(const Person& person, AgeType type, Feel feel, const Ticket& ticket);
+	Guest(const Person& person, AgeType type, Feel feel, const Ticket* ticket);
 	
 	//getters
 	const Ticket* getTicket() const;

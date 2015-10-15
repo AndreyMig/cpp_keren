@@ -8,6 +8,17 @@ const double Park::VIP_TICKET_PRICE = 250.0;
 Park::Park(const string& name) : name(name)
 {}
 
+void deleteGuest(const Guest* g)
+{
+	delete g->getTicket();
+	delete g;
+}
+
+Park::~Park()
+{
+	for_each(guests.begin(), guests.end(), deleteGuest);
+}
+
 //setters
 void Park::setName(const string& name)
 {
@@ -30,7 +41,7 @@ const vector<Operator*> Park::getOperators() const
 	return this->operators;
 }
 
-const MyLinkedList<Guest*> Park::getGuests() const
+const vector<Guest*> Park::getGuests() const
 {
 	return this->guests;
 }
@@ -40,35 +51,37 @@ Guest& Park::buyTicket(const Person& person, Guest::AgeType type, Guest::Feel fe
 	Ticket *t;
 
 	if(isVip)
-		t = new VIPTicket(Ticket(date,VIP_TICKET_PRICE),vipKind);
+		t = new VIPTicket(Ticket(date, VIP_TICKET_PRICE), vipKind);
 	else
-		t = new Ticket(date,VIP_TICKET_PRICE);
+		t = new Ticket(date, TICKET_PRICE);
 
-	Guest *newGuest = new Guest(person, type, feel, *t);
+	Guest *newGuest = new Guest(person, type, feel, t);
 
-	*this += newGuest;
+	*this += *newGuest;
 
 	return *newGuest;
 }
 
-/*Add guest to park*/
-const Park& Park::operator+=(Guest* guest)
+//Add guest to park
+const Park& Park::operator+=(Guest& guest)
 {
-	this->registerObserver(guest);
-	this->guests.addLast(guest);
+	this->registerObserver(&guest);
+	this->guests.push_back(&guest);
 	return *this;
 }
 
-/*Remove guest from park*/
-/* guest is not const because T type in template class is a pointer and 
-const obj* make the obj itself const and therefore can't comply with the template class because 
-const T& of isContained is equivalent to Guest* const&(const on pointer) and they are not compatiable*/
-const Park& Park::operator-=(Guest* guest) throw (const string)
+//Remove guest from park
+const Park& Park::operator-=(const Guest& guest) throw (const string)
 {
-	if(!guests.isContained(guest))
+	vector<Guest*>::iterator found = find(guests.begin(), guests.end() ,&guest);
+	
+	if(found == guests.end())
 		throw "Guest not found.";
 
-	guests.deleteElement(guest);
+	guests.erase(found);
+
+	deleteGuest(&guest);
+
 	return *this;
 }
 
@@ -92,15 +105,16 @@ const Park& Park::operator-=(const Facility& facility) throw (const string)
 }
 
 //add operator to park
-const Park& Park::operator+=(Operator& _operator)
+const Park& Park::operator+=(Operator& theOperator)
 {
-	operators.push_back(&_operator);
+	operators.push_back(&theOperator);
 	return *this;
 }
+
 // remove operator from park
-const Park& Park::operator-=(const Operator& _operator) throw (const string)
+const Park& Park::operator-=(const Operator& theOperator) throw (const string)
 {
-	vector<Operator*>::iterator found = find(operators.begin(), operators.end() ,&_operator);
+	vector<Operator*>::iterator found = find(operators.begin(), operators.end() ,&theOperator);
 
 	if(found == operators.end())
 		throw "Operator not found";
@@ -144,10 +158,7 @@ void Park::discountOnFoodSection(int precenatge) const
 	{
 		(*itr)->notify((*itr)->getObserverName(), precenatge);
 	}
-
 }
-
-
 
 //print
 ostream& operator<<(ostream& os, const Park& p)

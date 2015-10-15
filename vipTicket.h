@@ -20,7 +20,7 @@ public:
 	void setType(VIPType type);
 
 	//print
-	friend ostream& operator<<(ostream& os, const VIPTicket& t);
+	virtual void toOs(ostream& os) const;
 
 private:
 	VIPType type;

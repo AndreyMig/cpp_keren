@@ -4,7 +4,7 @@
 #include "waterRollerCoaster.h"
 
 int main(int argc, const char* argv[])
-{
+{   
 	try
 	{
 		//init park
@@ -49,10 +49,6 @@ int main(int argc, const char* argv[])
 		Guest& g2 = disneyWorld.buyTicket(p2, Guest::ADULT, Guest::HAPPY,"09/09/2015" ,true);
 		Guest& g3 = disneyWorld.buyTicket(p3, Guest::ADULT, Guest::HAPPY,"08/09/2015");
 		Guest& g4 = disneyWorld.buyTicket(p4, Guest::CHILD, Guest::AFRAID,"05/09/2015");
-
-		//Register observers
-		
-		disneyWorld.registerObserver(&g1);
 
 		//add guest to facility
 		waterSlide += g1;

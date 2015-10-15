@@ -6,7 +6,6 @@
 #include "operator.h"
 #include "guest.h"
 #include "vipTicket.h"
-#include "MyLinkedList.h"
 #include "IObserver.h"
 #include <string>
 #include <vector>
@@ -20,12 +19,13 @@ public:
 	static const double VIP_TICKET_PRICE;
 
 	Park(const string& name);
+	~Park();
 
 	//getters
 	const string& getName() const;
 	const vector<Facility*> getFacilities() const;
 	const vector<Operator*> getOperators() const;
-	const MyLinkedList<Guest*> getGuests() const; 
+	const vector<Guest*> getGuests() const; 
 
 	//setters
 	void setName(const string& name);
@@ -34,12 +34,19 @@ public:
 	// person buy ticket from park, the park create this person as a guest
 	Guest& buyTicket(const Person& person, Guest::AgeType type, Guest::Feel feel, const string& date, bool isVip=false, VIPTicket::VIPType vipKind=VIPTicket::FREE_FOOD); 
 
+	//add or remove facility
 	const Park& operator+=(Facility& facility);				// add facility to park
 	const Park& operator-=(const Facility& facility);		// remove facility from park
-	const Park& operator+=(Operator& _operator);			// add operator to park
-	const Park& operator-=(const Operator& _operator);		// remove operator from park
-	const Park& operator+=(Guest* guest);					// add guest to park
-	const Park& operator-=(Guest* guest);				    // Keren: missing const explained in cpp file
+
+	//add or remove operator
+	const Park& operator+=(Operator& theOperator);			// add operator to park
+	const Park& operator-=(const Operator& theOperator);	// remove operator from park
+
+	//add or remove guest
+	const Park& operator+=(Guest& guest);					// add guest to park
+	const Park& operator-=(const Guest& guest);				// remove guest from park
+	
+	//find operator by id
 	const Operator& operator[] (int id) const;
 
 	//print
@@ -52,11 +59,10 @@ public:
 private:
 	string name;
 
-	vector<Facility*> facilities;
-	vector<Operator*> operators;
 	vector<const IObserver*> viewers;
-	MyLinkedList<Guest*> guests;
-
+	vector<Operator*> operators;
+	vector<Guest*> guests;
+	vector<Facility*> facilities;
 
 	Park(const Park& other);
 	const Park& operator=(const Park& other);

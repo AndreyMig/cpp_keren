@@ -1,7 +1,6 @@
 #include "waterRollerCoaster.h"
 
-WaterRollerCoaster::WaterRollerCoaster(const WaterSlide& slide,const RollerCoaster& rollerCoaster)
-	: Facility(slide), WaterSlide(slide), RollerCoaster(rollerCoaster)
+WaterRollerCoaster::WaterRollerCoaster(const WaterSlide& ws, const RollerCoaster& rc) : Facility(ws), WaterSlide(ws), RollerCoaster(rc)
 {
 }
 

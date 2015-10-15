@@ -17,9 +17,8 @@ VIPTicket::VIPType VIPTicket::getTicketType() const
 }
 
 //print
-ostream& operator<<(ostream& os, const VIPTicket& t)
+void VIPTicket::toOs(ostream& os) const
 {
-	os << (Ticket&)t << " VIP details: " << vipTypes[t.type];
-	return os;
+	os << "[VIP type: " << vipTypes[type] << "]";
 }
 

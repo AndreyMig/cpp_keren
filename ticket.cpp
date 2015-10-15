@@ -34,7 +34,11 @@ void Ticket::setDate(const string& date)
 //print
 ostream& operator<<(ostream& os, const Ticket& t)
 {
-	os << "Ticket date:"  << t.date << " cost " << t.price;
+	os << "date:"  << t.date << " cost " << t.price << " ";
+	t.toOs(os);
 	return os;
 }
 
+void Ticket::toOs(ostream& os) const
+{
+}

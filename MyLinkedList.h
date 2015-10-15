@@ -18,8 +18,13 @@ public:
 	Node<T>* addLast(const T& t);
 	Node<T>* addLast(Node<T>* n);
 
+	Node<T>* getHead()				{ return head; }
+	const Node<T>* getHead() const	{ return head; }
+
 	void deleteElement(const T& t);
 	void deleteElement(const Node<T>* n);
+
+	void clear();
 
 	void print(ostream& o) const;
 };
@@ -27,10 +32,7 @@ public:
 template <class T>
 MyLinkedList<T>::~MyLinkedList()
 {
-	while (head != NULL)
-	{
-		deleteElement(head);
-	}
+	clear();
 }
 
 template <class T>
@@ -103,6 +105,15 @@ void MyLinkedList<T>::deleteElement(const Node<T>* n)
 		tail = tail->prev;
 
 	delete n;
+}
+
+template <class T>
+void MyLinkedList<T>::clear()
+{
+	while (head != NULL)
+	{
+		deleteElement(head);
+	}
 }
 
 template <class T>
