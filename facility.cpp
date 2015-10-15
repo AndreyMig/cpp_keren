@@ -48,7 +48,7 @@ const vector<bool> Facility::getAgeTypeAvailable() const
 	return ageTypeAvailable;
 }
 
-const MyLinkedList<const Guest*> Facility::getGuests() const
+const MyLinkedList<Guest*> Facility::getGuests() const
 {
 	return guests;
 }
@@ -91,10 +91,10 @@ void Facility::start(ostream& o) throw (const char*)
 
 	o << "** " << name << " started **" << endl;
 
-	Node<const Guest*>* cur = guests.getHead();
+	Node<Guest*>* cur = guests.getHead();
 	while(cur != NULL)
 	{
-		const Guest* g = cur->getValue();
+		Guest* g = cur->getValue();
 		g->haveFun(o);
 		cur = cur->getNext();
 	}
@@ -118,8 +118,9 @@ const Facility& Facility::operator+=(Guest& passenger) throw (const string)
 	return *this;
 }
 
+// linkedlist works on guest* and sending const means working on const guest*
 // remove a passenger to passengers list
-const Facility& Facility::operator-=(const Guest& passenger) throw(const string)
+const Facility& Facility::operator-=(Guest& passenger) throw(const string)
 {
 	if(!guests.isContained(&passenger))
 		throw "Guest not found";
@@ -138,13 +139,13 @@ ostream& operator<<(ostream& os, const Facility& f)
 	if(f.needVIPTicket)
 		os << "[Facility Require VIP Ticket]" << endl;
 
-	const Node<const Guest*>* cur = f.guests.getHead();
+	const Node<Guest*>* cur = f.guests.getHead();
 	if(cur != NULL)
 	{
 		os << "Waiting in line:" << endl;
 		while(cur != NULL)
 		{
-			const Guest* g = cur->getValue();
+			Guest* g = cur->getValue();
 			os << *g << endl;
 			cur = cur->getNext();
 		}

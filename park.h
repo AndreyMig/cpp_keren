@@ -23,9 +23,9 @@ public:
 
 	//getters
 	const string& getName() const;
-	const vector<Facility*> getFacilities() const;
-	const vector<Operator*> getOperators() const;
-	const vector<Guest*> getGuests() const; 
+	const vector<Facility*>& getFacilities() const;
+	const vector<Operator*>& getOperators() const;
+	const vector<Guest*>& getGuests() const; 
 
 	//setters
 	void setName(const string& name);

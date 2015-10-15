@@ -11,7 +11,7 @@ class MyLinkedList
 
 public:
 	MyLinkedList() : head(NULL), tail(NULL) {}
-	~MyLinkedList();
+	~MyLinkedList() { clear(); }
 
 	bool isContained(const T& t) const;
 
@@ -28,12 +28,6 @@ public:
 
 	void print(ostream& o) const;
 };
-
-template <class T>
-MyLinkedList<T>::~MyLinkedList()
-{
-	clear();
-}
 
 template <class T>
 bool MyLinkedList<T>::isContained(const T& t) const

@@ -31,17 +31,17 @@ const string& Park::getName() const
 	return name;
 }
 
-const vector<Facility*> Park::getFacilities() const
+const vector<Facility*>& Park::getFacilities() const
 {
 	return this->facilities;
 }
 
-const vector<Operator*> Park::getOperators() const
+const vector<Operator*>& Park::getOperators() const
 {
 	return this->operators;
 }
 
-const vector<Guest*> Park::getGuests() const
+const vector<Guest*>& Park::getGuests() const
 {
 	return this->guests;
 }

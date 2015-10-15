@@ -20,19 +20,19 @@ public:
 	bool doesNeedVIPTicket() const;
 	const string& getName() const;
 	const vector<bool> getAgeTypeAvailable() const;
-	const MyLinkedList<const Guest*> getGuests() const;
+	const MyLinkedList<Guest*> getGuests() const;
 	const Operator& getOperator() const;
 
 	//setters
 	void setNeedVIPTicket(bool needVIPTicket);
 	void Facility::setName(const string& name);
 	void setAgeTypeByIndex(int index, bool allowed);
-	void setOperator(Operator& mainOperator); // maybe const
+	void setOperator(Operator& mainOperator); 
 
 	//actions
-	void start(ostream& o=cout);									//start the facility (start each passenger "have fun" action, and remove all guests!!!! [operator -=]) 
-	const Facility& operator+=(Guest& passenger);					// add a passenger to passengers list only if operator accept!!!! (call for operator 'checkTicket' method)
-	const Facility& operator-=(const Guest& passenger);				// remove a passenger to passengers list
+	void start(ostream& o=cout);									//start the facility 
+	const Facility& operator+=(Guest& passenger);					// add a passenger to passengers list
+	const Facility& operator-=(Guest& passenger);				    // remove a passenger to passengers list
 
 	//print
 	friend ostream& operator<<(ostream& os, const Facility& f);
@@ -42,7 +42,7 @@ protected:
 	vector<bool> ageTypeAvailable;
 	bool needVIPTicket;
 
-	MyLinkedList<const Guest*> guests;
+	MyLinkedList<Guest*> guests;
 	Operator* mainOperator;
 
 	Facility(const Facility& other);
